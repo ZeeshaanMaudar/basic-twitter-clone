@@ -1,14 +1,19 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 
 import TweetForm from '../components/Form';
 import TweetsList from '../components/TweetsList';
+import Pagination from '../components/Pagination';
 
 const HomeView: FC = () => {
+
+  const [limit, setLimit] = useState(5);
+  const [page, setPage] = useState(1);
 
   return (
     <>
       <TweetForm />
-      <TweetsList />
+      <TweetsList {...{ page, limit }} />
+      <Pagination {...{ page, limit, setLimit, setPage }} />
     </>
   );
 }
