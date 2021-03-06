@@ -14,13 +14,20 @@ interface TweetCardProps {
     role: string,
     usersDetailsId: number,
     profilePic: string
+  },
+  userDetails: {
+    id: number,
+    firstName: string,
+    lastName: string,
+    birthday: string
   }
 }
 
-const Tweet: FC<TweetCardProps> = ({ tweetItem, user }) => {
+const Tweet: FC<TweetCardProps> = ({ tweetItem, user, userDetails }) => {
 
   const { tweet, date, claps, userId } = tweetItem;
   const { username, role, usersDetailsId, profilePic } = user;
+  const { firstName } = userDetails;
 
   return (
     <div style={{ border: '1px solid red'}}>
@@ -29,6 +36,7 @@ const Tweet: FC<TweetCardProps> = ({ tweetItem, user }) => {
       </div>
       <div>
         <div>
+          <h4>{firstName}</h4>
           <span>{username}</span>
           <span>{date}</span>
         </div>
