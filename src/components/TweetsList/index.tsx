@@ -87,17 +87,13 @@ const TweetsList: FC<TweetListProps> = ({ page, limit }) => {
 
   useEffect(() => {
     fetchTweetsDetails();
-  }, []);
+  }, [page, limit]);
 
   useEffect(() => {
     if (posted) {
       fetchTweetsDetails();
     }
   }, [posted]);
-
-  useEffect(() => {
-    fetchTweetsDetails();
-  }, [page, limit]);
 
   const fetchTweetsDetails = () => {
     dispatch(fetchTweetsStartAsync(page, limit));
