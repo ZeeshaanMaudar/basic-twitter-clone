@@ -4,7 +4,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchTweetsStartAsync } from '../../redux/tweets/tweetsActions';
 import { selectIsFetchingTweets, selectTweetsList, selectErrorFetchingTweets } from '../../redux/tweets/tweetsSelectors';
 
-interface Tweet {
+import Tweet from '../Tweet';
+
+interface TweetProps {
   id: number,
   tweet: string,
   date: string,
@@ -12,17 +14,13 @@ interface Tweet {
   userId: number
 }
 
-const callTweetsList = (tweetsList: Tweet[]) => {
+const callTweetsList = (tweetsList: TweetProps[]) => {
 
   if (tweetsList.length > 0) {
 
-    return tweetsList.map(({id, tweet, date, claps, userId }) => {
+    return tweetsList.map(tweetItem => {
       return (
-        <div key={id} style={{ border: '1px solid red'}}>
-          <div>{date}</div>
-          <div>{tweet}</div>
-          <div>{claps}</div>
-        </div>
+        <Tweet key={tweetItem.id} {...{ tweetItem }} />
       );
     });
   }
