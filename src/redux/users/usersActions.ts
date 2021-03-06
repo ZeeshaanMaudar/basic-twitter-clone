@@ -10,6 +10,14 @@ interface User {
   profilePic: string
 }
 
+interface UserDetails {
+  id: number,
+  firstName: string,
+  lastName: string,
+  birthday: string
+}
+
+// fetch users list
 export const fetchUsersRequest = () => ({
   type: actionTypes.FETCH_USERS_REQUEST,
 });
@@ -39,7 +47,38 @@ export const fetchUsersStartAsync = () => {
       .catch(error => {
         dispatch(fetchUsersFailure(error));
       })
-
   }
+};
 
+// fetch users details list
+export const fetchUsersDetailsRequest = () => ({
+  type: actionTypes.FETCH_USERS_DETAILS_REQUEST,
+});
+
+export const fetchUsersDetailsSuccess = (usersDetailsList: UserDetails[]) => ({
+  type: actionTypes.FETCH_USERS_DETAILS_SUCCESS,
+  payload: usersDetailsList
+});
+
+export const fetchUsersDetailsFailure = (error: string) => ({
+  type: actionTypes.FETCH_USERS_DETAILS_FAILURE,
+  payload: error
+});
+
+export const fetchUsersDetailsStartAsync = () => {
+
+  return (dispatch: any) => {
+
+    dispatch(fetchUsersDetailsRequest());
+
+    const endpoint = `${process.env.REACT_APP_API}/usersDetails`;
+
+    axios.get(endpoint)
+      .then(response => {
+        dispatch(fetchUsersDetailsSuccess(response.data));
+      })
+      .catch(error => {
+        dispatch(fetchUsersDetailsFailure(error));
+      })
+  }
 };
