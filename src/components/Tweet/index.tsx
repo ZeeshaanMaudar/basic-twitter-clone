@@ -14,7 +14,7 @@ interface TweetCardProps {
     role: string,
     usersDetailsId: number,
     profilePic: string
-  } | undefined
+  }
 }
 
 const Tweet: FC<TweetCardProps> = ({ tweetItem, user }) => {
