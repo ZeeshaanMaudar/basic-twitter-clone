@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { fetchTweetsStartAsync } from '../../redux/tweets/tweetsActions';
@@ -8,6 +8,11 @@ import { fetchUsersStartAsync, fetchUsersDetailsStartAsync } from '../../redux/u
 import { selectIsFetchingUsers, selectUsersList, selectErrorFetchingUsers, selectIsFetchingUsersDetails, selectUsersDetailsList, selectErrorFetchingUsersDetails } from '../../redux/users/usersSelectors';
 
 import Tweet from '../Tweet';
+
+interface TweetListProps {
+  page: number,
+  limit: number
+}
 
 interface TweetProps {
   id: number,
@@ -61,7 +66,7 @@ const callTweetsList = ({ tweetsList, usersList, usersDetailsList }: CardArgs) =
   );
 }
 
-const TweetsList = () => {
+const TweetsList: FC<TweetListProps> = ({ page, limit }) => {
 
   const dispatch = useDispatch();
   const loadingTweets = useSelector(selectIsFetchingTweets);
@@ -90,8 +95,12 @@ const TweetsList = () => {
     }
   }, [posted]);
 
+  useEffect(() => {
+    fetchTweetsDetails();
+  }, [page, limit]);
+
   const fetchTweetsDetails = () => {
-    dispatch(fetchTweetsStartAsync());
+    dispatch(fetchTweetsStartAsync(page, limit));
     dispatch(fetchUsersStartAsync());
     dispatch(fetchUsersDetailsStartAsync());
   }
