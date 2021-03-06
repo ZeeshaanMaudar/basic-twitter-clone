@@ -12,6 +12,7 @@ interface State {
   tweets: {
     isFetchingTweets: boolean,
     tweets: Tweet[],
+    count: number,
     errorFetching: string | null,
     isPosting: boolean,
     posted: boolean,
@@ -30,6 +31,11 @@ export const selectIsFetchingTweets = createSelector(
 export const selectTweetsList = createSelector(
   [selectTweets],
   tweets => tweets.tweets
+);
+
+export const selectTweetsCount = createSelector(
+  [selectTweets],
+  tweets => tweets.count
 );
 
 export const selectErrorFetchingTweets = createSelector(

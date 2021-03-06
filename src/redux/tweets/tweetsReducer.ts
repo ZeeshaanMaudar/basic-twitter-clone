@@ -3,6 +3,7 @@ import * as actionTypes from './tweetsActionTypes';
 const initialState = {
     isFetchingTweets: false,
     tweets: [],
+    count: 0,
     errorFetching: null,
     isPosting: false,
     posted: false,
@@ -19,7 +20,8 @@ const tweetsReducer = (state = initialState, action: any) => {
         case actionTypes.FETCH_TWEETS_SUCCESS:
             return {
                 ...state,
-                tweets: action.payload,
+                tweets: action.payload.tweets,
+                count: action.payload.count,
                 isFetchingTweets: false
             }
         case actionTypes.FETCH_TWEETS_FAILURE:

@@ -11,14 +11,19 @@ interface Tweet {
   userId: number
 }
 
+interface TweetAndCount {
+  tweets: Tweet[],
+  count: number
+}
+
 // fetch tweets request
 export const fetchTweetsRequest = () => ({
   type: actionTypes.FETCH_TWEETS_FAILURE,
 });
 
-export const fetchTweetsSuccess = (tweets: Tweet[]) => ({
+export const fetchTweetsSuccess = ({ tweets, count }: TweetAndCount) => ({
   type: actionTypes.FETCH_TWEETS_SUCCESS,
-  payload: tweets
+  payload: { tweets, count }
 });
 
 export const fetchTweetsFailure = (error: string) => ({
@@ -26,20 +31,20 @@ export const fetchTweetsFailure = (error: string) => ({
   payload: error
 });
 
-export const fetchTweetsStartAsync = () => {
+export const fetchTweetsStartAsync = (page: number, limit: number) => {
 
   return (dispatch: any) => {
 
     dispatch(fetchTweetsRequest());
 
-    const endpoint = `${process.env.REACT_APP_API}/tweets`;
+    const endpoint = `${process.env.REACT_APP_API}/tweets?_sort=date&_order=desc&_page=${page}&_limit=${limit}`;
 
     axios.get(endpoint)
       .then(response => {
-          dispatch(fetchTweetsSuccess(response.data));
+        dispatch(fetchTweetsSuccess({ tweets: response.data, count: response.headers['x-total-count'] }));
       })
       .catch(error => {
-          dispatch(fetchTweetsFailure(error));
+        dispatch(fetchTweetsFailure(error));
       })
   }
 };
