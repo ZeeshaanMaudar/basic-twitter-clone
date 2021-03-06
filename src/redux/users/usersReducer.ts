@@ -3,11 +3,15 @@ import * as actionTypes from './usersActionTypes';
 const initialState = {
     isFetchingUsers: false,
     usersList: [],
-    error: null
+    errorUsers: null,
+    isFetchingUsersDetails: false,
+    usersDetailsList: [],
+    errorUsersDetails: null
 };
 
 const usersReducer = (state = initialState, action: any) => {
     switch(action.type) {
+        // fetch users lists
         case actionTypes.FETCH_USERS_REQUEST:
             return {
                 ...state,
@@ -22,8 +26,27 @@ const usersReducer = (state = initialState, action: any) => {
         case actionTypes.FETCH_USERS_FAILURE:
             return {
                 ...state,
-                error: action.payload,
+                errorUsers: action.payload,
                 isFetchingUsers: false
+            }
+    
+        // fetch users details list
+        case actionTypes.FETCH_USERS_DETAILS_REQUEST:
+            return {
+                ...state,
+                isFetchingUsersDetails: true
+            }
+        case actionTypes.FETCH_USERS_DETAILS_SUCCESS:
+            return {
+                ...state,
+                usersDetailsList: action.payload,
+                isFetchingUsersDetails: false
+            }
+        case actionTypes.FETCH_USERS_DETAILS_FAILURE:
+            return {
+                ...state,
+                errorUsersDetails: action.payload,
+                isFetchingUsersDetails: false
             }
         default:
             return state;
