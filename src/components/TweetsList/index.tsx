@@ -4,8 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchTweetsStartAsync } from '../../redux/tweets/tweetsActions';
 import { selectIsFetchingTweets, selectTweetsList, selectErrorFetchingTweets } from '../../redux/tweets/tweetsSelectors';
 
-import { fetchUsersStartAsync } from '../../redux/users/usersActions';
-import { selectIsFetchingUsers, selectUsersList, selectErrorFetchingUsers } from '../../redux/users/usersSelectors';
+import { fetchUsersStartAsync, fetchUsersDetailsStartAsync } from '../../redux/users/usersActions';
+import { selectIsFetchingUsers, selectUsersList, selectErrorFetchingUsers, selectIsFetchingUsersDetails, selectUsersDetailsList, selectErrorFetchingUsersDetails } from '../../redux/users/usersSelectors';
 
 import Tweet from '../Tweet';
 
@@ -23,12 +23,20 @@ interface User {
   usersDetailsId: number,
   profilePic: string
 }
+
+interface UserDetails {
+  id: number,
+  firstName: string,
+  lastName: string,
+  birthday: string
+}
 interface CardArgs {
   tweetsList: TweetProps[],
-  usersList: User[]
+  usersList: User[],
+  usersDetailsList: UserDetails[]
 }
 
-const callTweetsList = ({ tweetsList, usersList }: CardArgs) => {
+const callTweetsList = ({ tweetsList, usersList, usersDetailsList }: CardArgs) => {
 
   if (tweetsList.length > 0) {
 
@@ -39,8 +47,11 @@ const callTweetsList = ({ tweetsList, usersList }: CardArgs) => {
       const userArray = usersList.filter(user => user.id === userId);
       const user = userArray[0];
 
+      const userDetailsArray = usersDetailsList.filter(userDetail => userDetail.id === user.usersDetailsId);
+      const userDetails = userDetailsArray[0];
+
       return (
-        <Tweet key={id} {...{ tweetItem, user }} />
+        <Tweet key={id} {...{ tweetItem, user, userDetails }} />
       );
     });
   }
@@ -61,9 +72,14 @@ const TweetsList = () => {
   const usersList = useSelector(selectUsersList);
   const usersError = useSelector(selectErrorFetchingUsers);
 
+  const loadingUsersDetails = useSelector(selectIsFetchingUsersDetails);
+  const usersDetailsList = useSelector(selectUsersDetailsList);
+  const usersDetailsError = useSelector(selectErrorFetchingUsersDetails);
+
   useEffect(() => {
     fetchTweets();
     fetchUsers();
+    fetchUsersDetails();
   }, []);
 
   const fetchTweets = () => {
@@ -74,17 +90,21 @@ const TweetsList = () => {
     dispatch(fetchUsersStartAsync());
   }
 
-  if (tweetsError || usersError) {
+  const fetchUsersDetails = () => {
+    dispatch(fetchUsersDetailsStartAsync());
+  }
+
+  if (tweetsError || usersError || usersDetailsError) {
     return <h1>Something went wrong!</h1>;
   }
 
-  if (loadingTweets || loadingUsers) {
+  if (loadingTweets || loadingUsers || loadingUsersDetails) {
     return <div>Loading...</div>;
   }
 
   return (
     <div>
-      {callTweetsList({ tweetsList, usersList })}
+      {callTweetsList({ tweetsList, usersList, usersDetailsList })}
     </div>
   );
 }
