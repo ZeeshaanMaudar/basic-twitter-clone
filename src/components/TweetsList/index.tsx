@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { fetchTweetsStartAsync } from '../../redux/tweets/tweetsActions';
-import { selectIsFetchingTweets, selectTweetsList, selectErrorFetchingTweets } from '../../redux/tweets/tweetsSelectors';
+import { selectIsFetchingTweets, selectTweetsList, selectErrorFetchingTweets, selectIsPosting, selectSuccessfullyPosted, selectErrorPosting } from '../../redux/tweets/tweetsSelectors';
 
 import { fetchUsersStartAsync, fetchUsersDetailsStartAsync } from '../../redux/users/usersActions';
 import { selectIsFetchingUsers, selectUsersList, selectErrorFetchingUsers, selectIsFetchingUsersDetails, selectUsersDetailsList, selectErrorFetchingUsersDetails } from '../../redux/users/usersSelectors';
@@ -76,29 +76,31 @@ const TweetsList = () => {
   const usersDetailsList = useSelector(selectUsersDetailsList);
   const usersDetailsError = useSelector(selectErrorFetchingUsersDetails);
 
+  const isPosting = useSelector(selectIsPosting);
+  const posted = useSelector(selectSuccessfullyPosted);
+  const errorPosting = useSelector(selectErrorPosting);
+
   useEffect(() => {
-    fetchTweets();
-    fetchUsers();
-    fetchUsersDetails();
+    fetchTweetsDetails();
   }, []);
 
-  const fetchTweets = () => {
+  useEffect(() => {
+    if (posted) {
+      fetchTweetsDetails();
+    }
+  }, [posted]);
+
+  const fetchTweetsDetails = () => {
     dispatch(fetchTweetsStartAsync());
-  }
-
-  const fetchUsers = () => {
     dispatch(fetchUsersStartAsync());
-  }
-
-  const fetchUsersDetails = () => {
     dispatch(fetchUsersDetailsStartAsync());
   }
 
-  if (tweetsError || usersError || usersDetailsError) {
+  if (tweetsError || usersError || usersDetailsError || errorPosting) {
     return <h1>Something went wrong!</h1>;
   }
 
-  if (loadingTweets || loadingUsers || loadingUsersDetails) {
+  if (loadingTweets || loadingUsers || loadingUsersDetails || isPosting) {
     return <div>Loading...</div>;
   }
 
