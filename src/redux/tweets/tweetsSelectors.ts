@@ -20,7 +20,10 @@ interface State {
     isUpdating: boolean,
     updated: boolean,
     currentId: number | null
-    errorUpdating: string | null
+    errorUpdating: string | null,
+    isDeleting: boolean,
+    deleted: boolean,
+    errorDeleting: string
   }
 }
 
@@ -82,4 +85,20 @@ export const selectCurrentId = createSelector(
 export const selectErrorUpdating = createSelector(
   [selectTweets],
   tweets => tweets.errorUpdating
+);
+
+// delete own tweet
+export const selectIsDeleting = createSelector(
+  [selectTweets],
+  tweets => tweets.isDeleting
+);
+
+export const selectSuccessfullyDeleted = createSelector(
+  [selectTweets],
+  tweets => tweets.deleted
+);
+
+export const selectErrorDeleting = createSelector(
+  [selectTweets],
+  tweets => tweets.errorDeleting
 );
