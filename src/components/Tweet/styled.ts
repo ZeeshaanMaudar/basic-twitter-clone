@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 
 import ClapIcon from '../svg/clap-icon.svg';
 import ClapIconBlue from '../svg/clap-icon-blue.svg';
+import DeleteIcon from '../svg/delete-icon.svg';
+import DeleteIconRed from '../svg/delete-icon-red.svg';
 
 export const Wrapper = styled.div`
   border-bottom: 1px solid #eee;
@@ -122,5 +124,21 @@ export const ClapButton = styled.button`
 
   &:hover {
     background-image: url(${ClapIconBlue})
+  }
+`
+
+export const DeleteButton = styled.button`
+  width: 18px;
+  height: 19px;
+  outline: none;
+  border: none;
+  background: none;
+  background-image: url(${DeleteIcon});
+  background-size: cover;
+  cursor: pointer;
+  margin-right: 15px;
+
+  &:hover {
+    background-image: url(${DeleteIconRed})
   }
 `

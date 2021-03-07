@@ -22,7 +22,8 @@ import {
   NameWrapper,
   VerifiedImage,
   TweetFooter,
-  ClapButton
+  ClapButton,
+  DeleteButton
 } from './styled';
 interface TweetCardProps {
   tweetItem: {
@@ -51,7 +52,7 @@ const callButton = (userId: number, handleDelete: () => void) => {
 
   if (userId === 1) {
     return (
-      <button onClick={handleDelete}>Delete</button>
+      <DeleteButton onClick={handleDelete} />
     );
   }
 
