@@ -10,6 +10,7 @@ const initialState = {
     errorPosting: null,
     isUpdating: false,
     updated: false,
+    currentId: null,
     errorUpdating: null
 };
 
@@ -67,7 +68,8 @@ const tweetsReducer = (state = initialState, action: any) => {
             return {
                 ...state,
                 updated: true,
-                isUpdating: false
+                isUpdating: false,
+                currentId: action.payload
             }
         case actionTypes.UPDATE_TWEET_CLAPS_FAILURE:
             return {
