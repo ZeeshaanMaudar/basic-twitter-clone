@@ -19,6 +19,7 @@ interface State {
     errorPosting: string | null,
     isUpdating: boolean,
     updated: boolean,
+    currentId: number | null
     errorUpdating: string | null
   }
 }
@@ -71,6 +72,11 @@ export const selectIsUpdating = createSelector(
 export const selectSuccessfullyUpdated = createSelector(
   [selectTweets],
   tweets => tweets.updated
+);
+
+export const selectCurrentId = createSelector(
+  [selectTweets],
+  tweets => tweets.currentId
 );
 
 export const selectErrorUpdating = createSelector(
