@@ -89,3 +89,35 @@ export const postTweetStartAsync = (tweet: string) => {
       })
   }
 };
+
+// update tweet claps
+export const updateTweetClapsRequest = () => ({
+  type: actionTypes.UPDATE_TWEET_CLAPS_REQUEST,
+});
+
+export const updateTweetClapsSuccess = () => ({
+  type: actionTypes.UPDATE_TWEET_CLAPS_SUCCESS
+});
+
+export const updateTweetClapsFailure = (error: string) => ({
+  type: actionTypes.UPDATE_TWEET_CLAPS_FAILURE,
+  payload: error
+});
+
+export const updateTweetClapsStartAsync = (id: number, newTweetItem: Tweet) => {
+
+  return (dispatch: any) => {
+
+    dispatch(updateTweetClapsRequest());
+
+    const endpoint = `${process.env.REACT_APP_API}/tweets/${id}`;
+
+    axios.put(endpoint, newTweetItem)
+      .then(() => {
+          dispatch(updateTweetClapsSuccess());
+      })
+      .catch(error => {
+          dispatch(updateTweetClapsFailure(error));
+      })
+  }
+};
