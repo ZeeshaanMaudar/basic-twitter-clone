@@ -55,6 +55,7 @@ const TweetForm: FC = () => {
   const handleSubmit = (event: { preventDefault: () => void; }) => {
     event.preventDefault();
     if (newTweet.length > 0) {
+      setNewTweet('');
       dispatch(postTweetStartAsync(newTweet))
     }
   }
