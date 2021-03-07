@@ -16,7 +16,10 @@ interface State {
     errorFetching: string | null,
     isPosting: boolean,
     posted: boolean,
-    errorPosting: string | null
+    errorPosting: string | null,
+    isUpdating: boolean,
+    updated: boolean,
+    errorUpdating: string | null
   }
 }
 
@@ -57,4 +60,20 @@ export const selectSuccessfullyPosted = createSelector(
 export const selectErrorPosting = createSelector(
   [selectTweets],
   tweets => tweets.errorPosting
+);
+
+// update tweet claps
+export const selectIsUpdating = createSelector(
+  [selectTweets],
+  tweets => tweets.isUpdating
+);
+
+export const selectSuccessfullyUpdated = createSelector(
+  [selectTweets],
+  tweets => tweets.updated
+);
+
+export const selectErrorUpdating = createSelector(
+  [selectTweets],
+  tweets => tweets.errorUpdating
 );
