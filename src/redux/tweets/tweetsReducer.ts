@@ -7,7 +7,10 @@ const initialState = {
     errorFetching: null,
     isPosting: false,
     posted: false,
-    errorPosting: null
+    errorPosting: null,
+    isUpdating: false,
+    updated: false,
+    errorUpdating: null
 };
 
 const tweetsReducer = (state = initialState, action: any) => {
@@ -50,6 +53,27 @@ const tweetsReducer = (state = initialState, action: any) => {
                 ...state,
                 errorPosting: action.payload,
                 isPosting: false
+            }
+        
+        // update tweet claps
+        case actionTypes.UPDATE_TWEET_CLAPS_REQUEST:
+            return {
+                ...state,
+                isUpdating: true,
+                updated: false,
+                errorUpdating: null
+            }
+        case actionTypes.UPDATE_TWEET_CLAPS_SUCCESS:
+            return {
+                ...state,
+                updated: true,
+                isUpdating: false
+            }
+        case actionTypes.UPDATE_TWEET_CLAPS_FAILURE:
+            return {
+                ...state,
+                errorUpdating: action.payload,
+                isUpdating: false
             }
         default:
             return state;
