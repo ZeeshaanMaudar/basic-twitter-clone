@@ -114,10 +114,10 @@ export const updateTweetClapsStartAsync = (id: number, newTweetItem: Tweet) => {
 
     axios.put(endpoint, newTweetItem)
       .then(() => {
-          dispatch(updateTweetClapsSuccess());
+        dispatch(updateTweetClapsSuccess());
       })
       .catch(error => {
-          dispatch(updateTweetClapsFailure(error));
+        dispatch(updateTweetClapsFailure(error));
       })
   }
 };
