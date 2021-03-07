@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+import ClapIcon from '../svg/clap-icon.svg';
+import ClapIconBlue from '../svg/clap-icon-blue.svg';
+
 export const Wrapper = styled.div`
   border-bottom: 1px solid #eee;
   padding: 10px 10px 30px 10px;
@@ -100,5 +103,24 @@ export const StyledTweet = styled.p`
 
   @media screen and (min-width: 550px) {
     font-size: 16px;
+  }
+`
+
+export const TweetFooter = styled.div`
+  display: flex;
+`
+
+export const ClapButton = styled.button`
+  width: 18px;
+  height: 19px;
+  outline: none;
+  border: none;
+  background: none;
+  background-image: url(${ClapIcon});
+  cursor: pointer;
+  margin-right: 15px;
+
+  &:hover {
+    background-image: url(${ClapIconBlue})
   }
 `
