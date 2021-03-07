@@ -71,7 +71,7 @@ export const postTweetStartAsync = (tweet: string) => {
 
     const endpoint = `${process.env.REACT_APP_API}/tweets`;
 
-    const currentDate = moment(new Date()).format('YYYY-MM-DD');
+    const currentDate = moment(new Date()).format('YYYY-MM-DD, h:mm:ss a');
 
     const tweetData = {
       tweet,
