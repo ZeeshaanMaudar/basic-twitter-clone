@@ -31,7 +31,7 @@ export const fetchTweetsFailure = (error: string) => ({
   payload: error
 });
 
-export const fetchTweetsStartAsync = (page: number, limit: number, userId: number) => {
+export const fetchTweetsStartAsync = (page: number, limit: number) => {
 
   return (dispatch: any) => {
 
