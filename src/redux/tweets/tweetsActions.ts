@@ -95,8 +95,9 @@ export const updateTweetClapsRequest = () => ({
   type: actionTypes.UPDATE_TWEET_CLAPS_REQUEST,
 });
 
-export const updateTweetClapsSuccess = () => ({
-  type: actionTypes.UPDATE_TWEET_CLAPS_SUCCESS
+export const updateTweetClapsSuccess = (currentId: number) => ({
+  type: actionTypes.UPDATE_TWEET_CLAPS_SUCCESS,
+  payload: currentId
 });
 
 export const updateTweetClapsFailure = (error: string) => ({
@@ -113,8 +114,8 @@ export const updateTweetClapsStartAsync = (id: number, newTweetItem: Tweet) => {
     const endpoint = `${process.env.REACT_APP_API}/tweets/${id}`;
 
     axios.put(endpoint, newTweetItem)
-      .then(() => {
-        dispatch(updateTweetClapsSuccess());
+      .then((response) => {
+        dispatch(updateTweetClapsSuccess(response.data.id));
       })
       .catch(error => {
         dispatch(updateTweetClapsFailure(error));
