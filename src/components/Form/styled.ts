@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
 export const TextArea = styled.textarea`
   width: 100%;
   border: none;
-  padding: 5px;
+  padding: 5px 5px 5px 20px;
   resize: none;
 
   &:focus {
@@ -35,3 +35,19 @@ export const Button = styled.button`
     width: 100px;
   }
 `;
+
+export const ProfilePic = styled.img`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+`
+
+export const FormHeader = styled.div`
+  display: flex;
+  margin-bottom: 20px;
+`
+
+export const FormFooter = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`
