@@ -24,7 +24,8 @@ import Tweet from '../Tweet';
 
 interface TweetListProps {
   page: number,
-  limit: number
+  limit: number,
+  singleUser: boolean
 }
 
 interface TweetProps {
@@ -52,12 +53,12 @@ interface CardArgs {
   tweetsList: TweetProps[],
   usersList: User[],
   usersDetailsList: UserDetails[],
-  userId: string,
+  singleUser: boolean,
   user: User,
   userDetails: UserDetails
 }
 
-const callTweetsList = ({ tweetsList, usersList, usersDetailsList, userId, user, userDetails }: CardArgs) => {
+const callTweetsList = ({ tweetsList, usersList, usersDetailsList, singleUser, user, userDetails }: CardArgs) => {
 
   if (tweetsList.length > 0) {
 
@@ -65,7 +66,7 @@ const callTweetsList = ({ tweetsList, usersList, usersDetailsList, userId, user,
 
       const { id, userId } = tweetItem;
 
-        if (userId) {
+        if (singleUser) {
           return (
             <Tweet key={id} {...{ tweetItem, user, userDetails }} />
           );
@@ -91,7 +92,7 @@ const callTweetsList = ({ tweetsList, usersList, usersDetailsList, userId, user,
   );
 }
 
-const TweetsList: FC<TweetListProps> = ({ page, limit }) => {
+const TweetsList: FC<TweetListProps> = ({ page, limit, singleUser }) => {
 
   const dispatch = useDispatch();
   const loadingTweets = useSelector(selectIsFetchingTweets);
@@ -132,7 +133,7 @@ const TweetsList: FC<TweetListProps> = ({ page, limit }) => {
   }, [posted, deleted]);
 
   const fetchTweetsDetails = () => {
-    if (userId) {
+    if (singleUser) {
       dispatch(fetchSingleUserTweetsStartAsync(page, limit, Number(userId)));
     } else {
       dispatch(fetchTweetsStartAsync(page, limit));
@@ -151,7 +152,7 @@ const TweetsList: FC<TweetListProps> = ({ page, limit }) => {
 
   return (
     <div>
-      {callTweetsList({ tweetsList, usersList, usersDetailsList, userId, user, userDetails })}
+      {callTweetsList({ tweetsList, usersList, usersDetailsList, singleUser, user, userDetails })}
     </div>
   );
 }
