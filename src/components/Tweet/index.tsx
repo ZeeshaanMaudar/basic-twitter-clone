@@ -34,7 +34,7 @@ const Tweet: FC<TweetCardProps> = ({ tweetItem, user, userDetails }) => {
 
   const [count, setCount] = useState(claps);
 
-  const dispatch = useDispatch();;
+  const dispatch = useDispatch();
 
   useEffect(() => {
 
