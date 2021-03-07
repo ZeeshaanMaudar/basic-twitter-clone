@@ -1,6 +1,7 @@
 import React, { FC, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 import { updateTweetClapsStartAsync, deleteTweetStartAsync } from '../../redux/tweets/tweetsActions';
 import { selectIsUpdating, selectCurrentId  } from '../../redux/tweets/tweetsSelectors';
@@ -73,6 +74,8 @@ const Tweet: FC<TweetCardProps> = ({ tweetItem, user, userDetails }) => {
     dispatch(deleteTweetStartAsync(id));
   }
 
+  const timeFromNow = moment(date, 'YYYY-MM-DD, h:mm:ss a').fromNow();
+
   if (user && userDetails) {
 
     const { username, role, usersDetailsId, profilePic } = user;
@@ -93,7 +96,7 @@ const Tweet: FC<TweetCardProps> = ({ tweetItem, user, userDetails }) => {
             <Link to={`/${userId}`}>
               <span>{username}</span>
             </Link>
-            <span>{date}</span>
+            <span>{timeFromNow}</span>
             {callButton(userId, handleDelete)}
           </div>
           <p>{tweet}</p>
