@@ -1,7 +1,8 @@
 import React, { FC, useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { updateTweetClapsStartAsync } from '../../redux/tweets/tweetsActions';
+import { selectIsUpdating, selectCurrentId } from '../../redux/tweets/tweetsSelectors';
 
 interface TweetCardProps {
   tweetItem: {
@@ -33,6 +34,8 @@ const Tweet: FC<TweetCardProps> = ({ tweetItem, user, userDetails }) => {
   const { firstName } = userDetails;
 
   const [count, setCount] = useState(claps);
+  const loading = useSelector(selectIsUpdating);
+  const currentId = useSelector(selectCurrentId);
 
   const dispatch = useDispatch();
 
@@ -65,7 +68,7 @@ const Tweet: FC<TweetCardProps> = ({ tweetItem, user, userDetails }) => {
           <span>{date}</span>
         </div>
         <p>{tweet}</p>
-        <button onClick={incrementCount}>Claps: {count}</button>
+        <button onClick={incrementCount} disabled={loading && id === currentId}>Claps: {count}</button>
       </div>
     </div>
   );
