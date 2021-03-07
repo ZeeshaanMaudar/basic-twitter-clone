@@ -20,7 +20,9 @@ import {
   HeaderRight,
   StyledTweet,
   NameWrapper,
-  VerifiedImage
+  VerifiedImage,
+  TweetFooter,
+  ClapButton
 } from './styled';
 interface TweetCardProps {
   tweetItem: {
@@ -130,7 +132,13 @@ const Tweet: FC<TweetCardProps> = ({ tweetItem, user, userDetails }) => {
             </HeaderRight>
           </TweetHeader>
           <StyledTweet>{tweet}</StyledTweet>
-          <button onClick={incrementCount} disabled={loading && id === currentId}>Claps: {count}</button>
+          <TweetFooter>
+            <ClapButton
+              onClick={incrementCount}
+              disabled={loading && id === currentId}
+            />
+            <span>Claps: {count}</span>
+          </TweetFooter>
         </TweetContent>
       </Wrapper>
     );
