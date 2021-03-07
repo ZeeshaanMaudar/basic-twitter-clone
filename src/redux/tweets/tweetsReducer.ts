@@ -11,7 +11,10 @@ const initialState = {
     isUpdating: false,
     updated: false,
     currentId: null,
-    errorUpdating: null
+    errorUpdating: null,
+    isDeleting: false,
+    deleted: false,
+    errorDeleting: ''
 };
 
 const tweetsReducer = (state = initialState, action: any) => {
@@ -77,6 +80,28 @@ const tweetsReducer = (state = initialState, action: any) => {
                 errorUpdating: action.payload,
                 isUpdating: false
             }
+        
+        // delete own tweet
+        case actionTypes.DELETE_TWEET_REQUEST:
+            return {
+                ...state,
+                isDeleting: true,
+                deleted: false,
+                errorDeleting: ''
+            }
+        case actionTypes.DELETE_TWEET_SUCCESS:
+            return {
+                ...state,
+                posted: true,
+                isDeleting: false
+            }
+        case actionTypes.DELETE_TWEET_FAILURE:
+            return {
+                ...state,
+                errorDeleting: action.payload,
+                isDeleting: false
+            }
+        
         default:
             return state;
     }
