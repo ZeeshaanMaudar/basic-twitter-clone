@@ -31,7 +31,7 @@ export const fetchTweetsFailure = (error: string) => ({
   payload: error
 });
 
-export const fetchTweetsStartAsync = (page: number, limit: number) => {
+export const fetchTweetsStartAsync = (page: number, limit: number, userId: number) => {
 
   return (dispatch: any) => {
 
@@ -151,6 +151,39 @@ export const deleteTweetStartAsync = (id: number) => {
       })
       .catch(error => {
           dispatch(deleteTweetFailure(error));
+      })
+  }
+};
+
+// fetch single user tweets list
+export const fetchSingleUserTweetsRequest = () => ({
+  type: actionTypes.FETCH_SINGLE_TWEETS_REQUEST,
+});
+
+export const fetchSingleUserTweetsSuccess = ({ tweets, count }: TweetAndCount) => ({
+  type: actionTypes.FETCH_SINGLE_TWEETS_SUCCESS,
+  payload: { tweets, count }
+});
+
+export const fetchSingleUserTweetsFailure = (error: string) => ({
+  type: actionTypes.FETCH_SINGLE_TWEETS_FAILURE,
+  payload: error
+});
+
+export const fetchSingleUserTweetsStartAsync = (page: number, limit: number, userId: number) => {
+
+  return (dispatch: any) => {
+
+    dispatch(fetchSingleUserTweetsRequest());
+
+    const endpoint = `${process.env.REACT_APP_API}/tweets?userId=${userId}&_sort=date&_order=desc&_page=${page}&_limit=${limit}`;
+
+    axios.get(endpoint)
+      .then(response => {
+        dispatch(fetchSingleUserTweetsSuccess({ tweets: response.data, count: response.headers['x-total-count'] }));
+      })
+      .catch(error => {
+        dispatch(fetchSingleUserTweetsFailure(error));
       })
   }
 };
