@@ -1,5 +1,7 @@
 import React, { FC, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 import { updateTweetClapsStartAsync, deleteTweetStartAsync } from '../../redux/tweets/tweetsActions';
 import { selectIsUpdating, selectCurrentId  } from '../../redux/tweets/tweetsSelectors';
@@ -42,8 +44,6 @@ const callButton = (userId: number, handleDelete: () => void) => {
 const Tweet: FC<TweetCardProps> = ({ tweetItem, user, userDetails }) => {
 
   const { id, tweet, date, claps, userId } = tweetItem;
-  const { username, role, usersDetailsId, profilePic } = user;
-  const { firstName } = userDetails;
 
   const [count, setCount] = useState(claps);
   const loading = useSelector(selectIsUpdating);
@@ -74,23 +74,39 @@ const Tweet: FC<TweetCardProps> = ({ tweetItem, user, userDetails }) => {
     dispatch(deleteTweetStartAsync(id));
   }
 
-  return (
-    <div style={{ border: '1px solid red'}}>
-      <div>
-        <img src={profilePic} alt={`${username}'s profile avatar`} style={{ width: '50px', height: '50px'}} />
-      </div>
-      <div>
+  const timeFromNow = moment(date, 'YYYY-MM-DD, h:mm:ss a').fromNow();
+
+  if (user && userDetails) {
+
+    const { username, role, usersDetailsId, profilePic } = user;
+    const { firstName } = userDetails;
+
+    return (
+      <div style={{ border: '1px solid red'}}>
         <div>
-          <h4>{firstName}</h4>
-          <span>{username}</span>
-          <span>{date}</span>
-          {callButton(userId, handleDelete)}
+          <Link to={`/${userId}`}>
+            <img src={profilePic} alt={`${username}'s profile avatar`} style={{ width: '50px', height: '50px'}} />
+          </Link>
         </div>
-        <p>{tweet}</p>
-        <button onClick={incrementCount} disabled={loading && id === currentId}>Claps: {count}</button>
+        <div>
+          <div>
+            <Link to={`/${userId}`}>
+              <h4>{firstName}</h4>
+            </Link>
+            <Link to={`/${userId}`}>
+              <span>{username}</span>
+            </Link>
+            <span>{timeFromNow}</span>
+            {callButton(userId, handleDelete)}
+          </div>
+          <p>{tweet}</p>
+          <button onClick={incrementCount} disabled={loading && id === currentId}>Claps: {count}</button>
+        </div>
       </div>
-    </div>
-  );
+    );
+  } else {
+    return null;
+  }
 }
 
 export default Tweet;

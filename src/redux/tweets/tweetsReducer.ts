@@ -92,7 +92,7 @@ const tweetsReducer = (state = initialState, action: any) => {
         case actionTypes.DELETE_TWEET_SUCCESS:
             return {
                 ...state,
-                posted: true,
+                deleted: true,
                 isDeleting: false
             }
         case actionTypes.DELETE_TWEET_FAILURE:
@@ -100,6 +100,25 @@ const tweetsReducer = (state = initialState, action: any) => {
                 ...state,
                 errorDeleting: action.payload,
                 isDeleting: false
+            }
+        
+        case actionTypes.FETCH_SINGLE_TWEETS_REQUEST:
+            return {
+                ...state,
+                isFetchingTweets: true
+            }
+        case actionTypes.FETCH_SINGLE_TWEETS_SUCCESS:
+            return {
+                ...state,
+                tweets: action.payload.tweets,
+                count: action.payload.count,
+                isFetchingTweets: false
+            }
+        case actionTypes.FETCH_SINGLE_TWEETS_FAILURE:
+            return {
+                ...state,
+                errorFetching: action.payload,
+                isFetchingTweets: false
             }
         
         default:

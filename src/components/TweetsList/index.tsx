@@ -1,7 +1,7 @@
 import React, { FC, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
-import { fetchTweetsStartAsync } from '../../redux/tweets/tweetsActions';
 import {
   selectIsFetchingTweets,
   selectTweetsList,
@@ -17,11 +17,15 @@ import {
 import { fetchUsersStartAsync, fetchUsersDetailsStartAsync } from '../../redux/users/usersActions';
 import { selectIsFetchingUsers, selectUsersList, selectErrorFetchingUsers, selectIsFetchingUsersDetails, selectUsersDetailsList, selectErrorFetchingUsersDetails } from '../../redux/users/usersSelectors';
 
+import { selectUser, selectUserDetails } from '../../redux/singleUser/singleUserSelectors';
+import { fetchTweetsStartAsync, fetchSingleUserTweetsStartAsync } from '../../redux/tweets/tweetsActions';
+
 import Tweet from '../Tweet';
 
 interface TweetListProps {
   page: number,
-  limit: number
+  limit: number,
+  singleUser: boolean
 }
 
 interface TweetProps {
@@ -48,10 +52,13 @@ interface UserDetails {
 interface CardArgs {
   tweetsList: TweetProps[],
   usersList: User[],
-  usersDetailsList: UserDetails[]
+  usersDetailsList: UserDetails[],
+  singleUser: boolean,
+  user: User,
+  userDetails: UserDetails
 }
 
-const callTweetsList = ({ tweetsList, usersList, usersDetailsList }: CardArgs) => {
+const callTweetsList = ({ tweetsList, usersList, usersDetailsList, singleUser, user, userDetails }: CardArgs) => {
 
   if (tweetsList.length > 0) {
 
@@ -59,15 +66,24 @@ const callTweetsList = ({ tweetsList, usersList, usersDetailsList }: CardArgs) =
 
       const { id, userId } = tweetItem;
 
-      const userArray = usersList.filter(user => user.id === userId);
-      const user = userArray[0];
+        if (singleUser) {
+          return (
+            <Tweet key={id} {...{ tweetItem, user, userDetails }} />
+          );
+        } else {
 
-      const userDetailsArray = usersDetailsList.filter(userDetail => userDetail.id === user.usersDetailsId);
-      const userDetails = userDetailsArray[0];
+          const userArray = usersList.filter(user => user.id === userId);
+          const userItem = userArray[0];
 
-      return (
-        <Tweet key={id} {...{ tweetItem, user, userDetails }} />
-      );
+          const userDetailsArray = usersDetailsList.filter(userDetail => userDetail.id === userItem.usersDetailsId);
+          const userDetailsItem = userDetailsArray[0];
+
+          return (
+            <Tweet key={id} {...{ tweetItem, user: userItem, userDetails: userDetailsItem }} />
+          );
+
+        }
+
     });
   }
 
@@ -76,7 +92,7 @@ const callTweetsList = ({ tweetsList, usersList, usersDetailsList }: CardArgs) =
   );
 }
 
-const TweetsList: FC<TweetListProps> = ({ page, limit }) => {
+const TweetsList: FC<TweetListProps> = ({ page, limit, singleUser }) => {
 
   const dispatch = useDispatch();
   const loadingTweets = useSelector(selectIsFetchingTweets);
@@ -99,6 +115,11 @@ const TweetsList: FC<TweetListProps> = ({ page, limit }) => {
   const deleted = useSelector(selectSuccessfullyDeleted);
   const errorDeleting = useSelector(selectErrorDeleting);
 
+  const user = useSelector(selectUser);
+  const userDetails = useSelector(selectUserDetails);
+
+  const { userId } = useParams<{ userId: string }>();
+
   useEffect(() => {
     fetchTweetsDetails();
   }, [page, limit]);
@@ -112,9 +133,13 @@ const TweetsList: FC<TweetListProps> = ({ page, limit }) => {
   }, [posted, deleted]);
 
   const fetchTweetsDetails = () => {
-    dispatch(fetchTweetsStartAsync(page, limit));
-    dispatch(fetchUsersStartAsync());
-    dispatch(fetchUsersDetailsStartAsync());
+    if (singleUser) {
+      dispatch(fetchSingleUserTweetsStartAsync(page, limit, Number(userId)));
+    } else {
+      dispatch(fetchTweetsStartAsync(page, limit));
+      dispatch(fetchUsersStartAsync());
+      dispatch(fetchUsersDetailsStartAsync());
+    }
   }
 
   if (tweetsError || usersError || usersDetailsError || errorPosting || errorDeleting) {
@@ -127,7 +152,7 @@ const TweetsList: FC<TweetListProps> = ({ page, limit }) => {
 
   return (
     <div>
-      {callTweetsList({ tweetsList, usersList, usersDetailsList })}
+      {callTweetsList({ tweetsList, usersList, usersDetailsList, singleUser, user, userDetails })}
     </div>
   );
 }
