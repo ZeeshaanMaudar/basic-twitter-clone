@@ -1,8 +1,8 @@
 import React, { FC, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { updateTweetClapsStartAsync } from '../../redux/tweets/tweetsActions';
-import { selectIsUpdating, selectCurrentId } from '../../redux/tweets/tweetsSelectors';
+import { updateTweetClapsStartAsync, deleteTweetStartAsync } from '../../redux/tweets/tweetsActions';
+import { selectIsUpdating, selectCurrentId  } from '../../redux/tweets/tweetsSelectors';
 
 interface TweetCardProps {
   tweetItem: {
@@ -27,6 +27,18 @@ interface TweetCardProps {
   }
 }
 
+const callButton = (userId: number, handleDelete: () => void) => {
+
+  if (userId === 1) {
+    return (
+      <button onClick={handleDelete}>Delete</button>
+    );
+  }
+
+  return null;
+
+}
+
 const Tweet: FC<TweetCardProps> = ({ tweetItem, user, userDetails }) => {
 
   const { id, tweet, date, claps, userId } = tweetItem;
@@ -41,19 +53,25 @@ const Tweet: FC<TweetCardProps> = ({ tweetItem, user, userDetails }) => {
 
   useEffect(() => {
 
-    const newTweetItem = {
-      ...tweetItem,
-      claps: count
-    };
+    if (count !== claps) {
 
-    dispatch(updateTweetClapsStartAsync(id, newTweetItem));
+      const newTweetItem = {
+        ...tweetItem,
+        claps: count
+      };
+  
+      dispatch(updateTweetClapsStartAsync(id, newTweetItem));
+
+    }
 
   }, [count]);
 
   const incrementCount = () => {
+      setCount(prevCount => prevCount + 1);
+  }
 
-    setCount(prevCount => prevCount + 1);
-
+  const handleDelete = () => {
+    dispatch(deleteTweetStartAsync(id));
   }
 
   return (
@@ -66,6 +84,7 @@ const Tweet: FC<TweetCardProps> = ({ tweetItem, user, userDetails }) => {
           <h4>{firstName}</h4>
           <span>{username}</span>
           <span>{date}</span>
+          {callButton(userId, handleDelete)}
         </div>
         <p>{tweet}</p>
         <button onClick={incrementCount} disabled={loading && id === currentId}>Claps: {count}</button>
