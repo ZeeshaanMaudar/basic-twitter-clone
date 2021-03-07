@@ -122,3 +122,35 @@ export const updateTweetClapsStartAsync = (id: number, newTweetItem: Tweet) => {
       })
   }
 };
+
+// delete own tweet
+export const deleteTweetRequest = () => ({
+  type: actionTypes.DELETE_TWEET_REQUEST,
+});
+
+export const deleteTweetSuccess = () => ({
+  type: actionTypes.DELETE_TWEET_SUCCESS
+});
+
+export const deleteTweetFailure = (error: string) => ({
+  type: actionTypes.DELETE_TWEET_FAILURE,
+  payload: error
+});
+
+export const deleteTweetStartAsync = (id: number) => {
+
+  return (dispatch: any) => {
+
+    dispatch(deleteTweetRequest());
+
+    const endpoint = `${process.env.REACT_APP_API}/tweets/${id}`;
+
+    axios.delete(endpoint)
+      .then(() => {
+          dispatch(deleteTweetSuccess());
+      })
+      .catch(error => {
+          dispatch(deleteTweetFailure(error));
+      })
+  }
+};
