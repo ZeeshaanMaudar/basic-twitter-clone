@@ -1,15 +1,8 @@
-import React, { FC } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { updateTweetClapsStartAsync } from '../../redux/tweets/tweetsActions';
 
-interface TweetProps {
-  id: number,
-  tweet: string,
-  date: string,
-  claps: number,
-  userId: number
-}
 interface TweetCardProps {
   tweetItem: {
     id: number,
@@ -39,16 +32,25 @@ const Tweet: FC<TweetCardProps> = ({ tweetItem, user, userDetails }) => {
   const { username, role, usersDetailsId, profilePic } = user;
   const { firstName } = userDetails;
 
-  const dispatch = useDispatch();
+  const [count, setCount] = useState(claps);
 
-  const incrementCount = (id: number, tweetItem: TweetProps) => {
+  const dispatch = useDispatch();;
+
+  useEffect(() => {
 
     const newTweetItem = {
       ...tweetItem,
-      claps: claps + 1
+      claps: count
     };
 
     dispatch(updateTweetClapsStartAsync(id, newTweetItem));
+
+  }, [count]);
+
+  const incrementCount = () => {
+
+    setCount(prevCount => prevCount + 1);
+
   }
 
   return (
@@ -63,7 +65,7 @@ const Tweet: FC<TweetCardProps> = ({ tweetItem, user, userDetails }) => {
           <span>{date}</span>
         </div>
         <p>{tweet}</p>
-        <button onClick={() => incrementCount(id, tweetItem)}>Claps: {claps}</button>
+        <button onClick={incrementCount}>Claps: {count}</button>
       </div>
     </div>
   );
