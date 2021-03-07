@@ -30,7 +30,7 @@ const UserDetailsView: FC = () => {
   return (
     <div>
       <Profile />
-      <TweetsList {...{ page, limit }} />
+      <TweetsList {...{ page, limit }} singleUser={true} />
       <Pagination {...{ page, limit, setLimit, setPage }} />
       <div>Tweets Section</div>
       <div>Statistics Section</div>

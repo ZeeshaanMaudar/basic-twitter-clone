@@ -12,7 +12,7 @@ const HomeView: FC = () => {
   return (
     <>
       <TweetForm />
-      <TweetsList {...{ page, limit }} />
+      <TweetsList {...{ page, limit }} singleUser={false} />
       <Pagination {...{ page, limit, setLimit, setPage }} />
     </>
   );
