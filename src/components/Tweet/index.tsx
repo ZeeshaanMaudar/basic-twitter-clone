@@ -1,5 +1,6 @@
 import React, { FC, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { updateTweetClapsStartAsync, deleteTweetStartAsync } from '../../redux/tweets/tweetsActions';
 import { selectIsUpdating, selectCurrentId  } from '../../redux/tweets/tweetsSelectors';
@@ -80,12 +81,18 @@ const Tweet: FC<TweetCardProps> = ({ tweetItem, user, userDetails }) => {
     return (
       <div style={{ border: '1px solid red'}}>
         <div>
-          <img src={profilePic} alt={`${username}'s profile avatar`} style={{ width: '50px', height: '50px'}} />
+          <Link to={`/${userId}`}>
+            <img src={profilePic} alt={`${username}'s profile avatar`} style={{ width: '50px', height: '50px'}} />
+          </Link>
         </div>
         <div>
           <div>
-            <h4>{firstName}</h4>
-            <span>{username}</span>
+            <Link to={`/${userId}`}>
+              <h4>{firstName}</h4>
+            </Link>
+            <Link to={`/${userId}`}>
+              <span>{username}</span>
+            </Link>
             <span>{date}</span>
             {callButton(userId, handleDelete)}
           </div>
