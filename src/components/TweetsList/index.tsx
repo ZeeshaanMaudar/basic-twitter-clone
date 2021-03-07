@@ -8,7 +8,10 @@ import {
   selectErrorFetchingTweets,
   selectIsPosting,
   selectSuccessfullyPosted,
-  selectErrorPosting
+  selectErrorPosting,
+  selectIsDeleting,
+  selectSuccessfullyDeleted,
+  selectErrorDeleting
 } from '../../redux/tweets/tweetsSelectors';
 
 import { fetchUsersStartAsync, fetchUsersDetailsStartAsync } from '../../redux/users/usersActions';
@@ -92,17 +95,21 @@ const TweetsList: FC<TweetListProps> = ({ page, limit }) => {
   const posted = useSelector(selectSuccessfullyPosted);
   const errorPosting = useSelector(selectErrorPosting);
 
+  const isDeleting = useSelector(selectIsDeleting);
+  const deleted = useSelector(selectSuccessfullyDeleted);
+  const errorDeleting = useSelector(selectErrorDeleting);
+
   useEffect(() => {
     fetchTweetsDetails();
   }, [page, limit]);
 
   useEffect(() => {
 
-    if (posted) {
+    if (posted || deleted) {
       fetchTweetsDetails();
     }
 
-  }, [posted]);
+  }, [posted, deleted]);
 
   const fetchTweetsDetails = () => {
     dispatch(fetchTweetsStartAsync(page, limit));
@@ -110,11 +117,11 @@ const TweetsList: FC<TweetListProps> = ({ page, limit }) => {
     dispatch(fetchUsersDetailsStartAsync());
   }
 
-  if (tweetsError || usersError || usersDetailsError || errorPosting) {
+  if (tweetsError || usersError || usersDetailsError || errorPosting || errorDeleting) {
     return <h1>Something went wrong!</h1>;
   }
 
-  if (loadingTweets || loadingUsers || loadingUsersDetails || isPosting) {
+  if (loadingTweets || loadingUsers || loadingUsersDetails || isPosting || isDeleting) {
     return <div>Loading...</div>;
   }
 
