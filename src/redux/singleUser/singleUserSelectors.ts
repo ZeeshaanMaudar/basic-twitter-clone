@@ -8,11 +8,21 @@ interface User {
   profilePic: string
 }
 
+interface UserDetails {
+  id: number,
+  firstName: string,
+  lastName: string,
+  birthday: string
+}
+
 interface State {
   singleUser: {
     isFetchingUser: boolean,
     user: User,
     errorUser: string,
+    isFetchingSingleUserDetails: boolean,
+    userDetails: UserDetails
+    errorUserDetails: string
   }
 }
 
@@ -32,4 +42,20 @@ export const selectUser= createSelector(
 export const selectErrorFetchingUser = createSelector(
   [selectUserState],
   singleUser => singleUser.errorUser
+);
+
+// single user details 
+export const selectIsFetchingSingleUserDetails = createSelector(
+  [selectUserState],
+  singleUser => singleUser.isFetchingSingleUserDetails
+);
+
+export const selectUserDetails = createSelector(
+  [selectUserState],
+  singleUser => singleUser.userDetails
+);
+
+export const selectErrorFetchingUserDetails = createSelector(
+  [selectUserState],
+  singleUser => singleUser.errorUserDetails
 );
