@@ -2,7 +2,17 @@ import React, { FC, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { fetchTweetsStartAsync } from '../../redux/tweets/tweetsActions';
-import { selectIsFetchingTweets, selectTweetsList, selectErrorFetchingTweets, selectIsPosting, selectSuccessfullyPosted, selectErrorPosting } from '../../redux/tweets/tweetsSelectors';
+import {
+  selectIsFetchingTweets,
+  selectTweetsList,
+  selectErrorFetchingTweets,
+  selectIsPosting,
+  selectSuccessfullyPosted,
+  selectErrorPosting,
+  selectIsUpdating,
+  selectSuccessfullyUpdated,
+  selectErrorUpdating
+} from '../../redux/tweets/tweetsSelectors';
 
 import { fetchUsersStartAsync, fetchUsersDetailsStartAsync } from '../../redux/users/usersActions';
 import { selectIsFetchingUsers, selectUsersList, selectErrorFetchingUsers, selectIsFetchingUsersDetails, selectUsersDetailsList, selectErrorFetchingUsersDetails } from '../../redux/users/usersSelectors';
@@ -85,15 +95,21 @@ const TweetsList: FC<TweetListProps> = ({ page, limit }) => {
   const posted = useSelector(selectSuccessfullyPosted);
   const errorPosting = useSelector(selectErrorPosting);
 
+  const isUpdating = useSelector(selectIsUpdating);
+  const updated = useSelector(selectSuccessfullyUpdated);
+  const errprUpdating = useSelector(selectErrorUpdating);
+
   useEffect(() => {
     fetchTweetsDetails();
   }, [page, limit]);
 
   useEffect(() => {
-    if (posted) {
+
+    if (posted || updated) {
       fetchTweetsDetails();
     }
-  }, [posted]);
+    
+  }, [posted, updated]);
 
   const fetchTweetsDetails = () => {
     dispatch(fetchTweetsStartAsync(page, limit));
@@ -101,11 +117,11 @@ const TweetsList: FC<TweetListProps> = ({ page, limit }) => {
     dispatch(fetchUsersDetailsStartAsync());
   }
 
-  if (tweetsError || usersError || usersDetailsError || errorPosting) {
+  if (tweetsError || usersError || usersDetailsError || errorPosting || errprUpdating) {
     return <h1>Something went wrong!</h1>;
   }
 
-  if (loadingTweets || loadingUsers || loadingUsersDetails || isPosting) {
+  if (loadingTweets || loadingUsers || loadingUsersDetails || isPosting || isUpdating) {
     return <div>Loading...</div>;
   }
 
