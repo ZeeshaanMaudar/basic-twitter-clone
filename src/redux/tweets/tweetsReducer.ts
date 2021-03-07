@@ -7,7 +7,14 @@ const initialState = {
     errorFetching: null,
     isPosting: false,
     posted: false,
-    errorPosting: null
+    errorPosting: null,
+    isUpdating: false,
+    updated: false,
+    currentId: null,
+    errorUpdating: null,
+    isDeleting: false,
+    deleted: false,
+    errorDeleting: ''
 };
 
 const tweetsReducer = (state = initialState, action: any) => {
@@ -51,6 +58,50 @@ const tweetsReducer = (state = initialState, action: any) => {
                 errorPosting: action.payload,
                 isPosting: false
             }
+        
+        // update tweet claps
+        case actionTypes.UPDATE_TWEET_CLAPS_REQUEST:
+            return {
+                ...state,
+                isUpdating: true,
+                updated: false,
+                errorUpdating: null
+            }
+        case actionTypes.UPDATE_TWEET_CLAPS_SUCCESS:
+            return {
+                ...state,
+                updated: true,
+                isUpdating: false,
+                currentId: action.payload
+            }
+        case actionTypes.UPDATE_TWEET_CLAPS_FAILURE:
+            return {
+                ...state,
+                errorUpdating: action.payload,
+                isUpdating: false
+            }
+        
+        // delete own tweet
+        case actionTypes.DELETE_TWEET_REQUEST:
+            return {
+                ...state,
+                isDeleting: true,
+                deleted: false,
+                errorDeleting: ''
+            }
+        case actionTypes.DELETE_TWEET_SUCCESS:
+            return {
+                ...state,
+                posted: true,
+                isDeleting: false
+            }
+        case actionTypes.DELETE_TWEET_FAILURE:
+            return {
+                ...state,
+                errorDeleting: action.payload,
+                isDeleting: false
+            }
+        
         default:
             return state;
     }

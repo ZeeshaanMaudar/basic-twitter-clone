@@ -16,7 +16,14 @@ interface State {
     errorFetching: string | null,
     isPosting: boolean,
     posted: boolean,
-    errorPosting: string | null
+    errorPosting: string | null,
+    isUpdating: boolean,
+    updated: boolean,
+    currentId: number | null
+    errorUpdating: string | null,
+    isDeleting: boolean,
+    deleted: boolean,
+    errorDeleting: string
   }
 }
 
@@ -57,4 +64,41 @@ export const selectSuccessfullyPosted = createSelector(
 export const selectErrorPosting = createSelector(
   [selectTweets],
   tweets => tweets.errorPosting
+);
+
+// update tweet claps
+export const selectIsUpdating = createSelector(
+  [selectTweets],
+  tweets => tweets.isUpdating
+);
+
+export const selectSuccessfullyUpdated = createSelector(
+  [selectTweets],
+  tweets => tweets.updated
+);
+
+export const selectCurrentId = createSelector(
+  [selectTweets],
+  tweets => tweets.currentId
+);
+
+export const selectErrorUpdating = createSelector(
+  [selectTweets],
+  tweets => tweets.errorUpdating
+);
+
+// delete own tweet
+export const selectIsDeleting = createSelector(
+  [selectTweets],
+  tweets => tweets.isDeleting
+);
+
+export const selectSuccessfullyDeleted = createSelector(
+  [selectTweets],
+  tweets => tweets.deleted
+);
+
+export const selectErrorDeleting = createSelector(
+  [selectTweets],
+  tweets => tweets.errorDeleting
 );
