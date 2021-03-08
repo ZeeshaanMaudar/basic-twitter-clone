@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+import { SpinnerCircular } from 'spinners-react';
 
 export const Wrapper = styled.div`
   padding: 10px;
@@ -15,3 +15,9 @@ export const Title = styled.h2`
   margin: 0;
   margin-bottom: 30px;
 `;
+
+export const Spinner = styled(SpinnerCircular)`
+  display: block;
+  margin: 0 auto;
+  padding-bottom: 40px;
+`
