@@ -45,7 +45,7 @@ export const fetchUsersStartAsync = () => {
         dispatch(fetchUsersSuccess(response.data));
       })
       .catch(error => {
-        dispatch(fetchUsersFailure(error));
+        dispatch(fetchUsersFailure(error.message));
       })
   }
 };
@@ -78,7 +78,7 @@ export const fetchUsersDetailsStartAsync = () => {
         dispatch(fetchUsersDetailsSuccess(response.data));
       })
       .catch(error => {
-        dispatch(fetchUsersDetailsFailure(error));
+        dispatch(fetchUsersDetailsFailure(error.message));
       })
   }
 };

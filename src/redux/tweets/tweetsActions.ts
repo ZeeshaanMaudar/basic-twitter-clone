@@ -18,7 +18,7 @@ interface TweetAndCount {
 
 // fetch tweets request
 export const fetchTweetsRequest = () => ({
-  type: actionTypes.FETCH_TWEETS_FAILURE,
+  type: actionTypes.FETCH_TWEETS_REQUEST,
 });
 
 export const fetchTweetsSuccess = ({ tweets, count }: TweetAndCount) => ({
@@ -37,14 +37,14 @@ export const fetchTweetsStartAsync = (page: number, limit: number) => {
 
     dispatch(fetchTweetsRequest());
 
-    const endpoint = `${process.env.REACT_APP_API}/tweets?_sort=date&_order=desc&_page=${page}&_limit=${limit}`;
+    const endpoint = `${process.env.REACT_APP_API}/twee?_sort=date&_order=desc&_page=${page}&_limit=${limit}`;
 
     axios.get(endpoint)
       .then(response => {
         dispatch(fetchTweetsSuccess({ tweets: response.data, count: response.headers['x-total-count'] }));
       })
       .catch(error => {
-        dispatch(fetchTweetsFailure(error));
+        dispatch(fetchTweetsFailure(error.message));
       })
   }
 };
@@ -85,7 +85,7 @@ export const postTweetStartAsync = (tweet: string) => {
           dispatch(postTweetSuccess());
       })
       .catch(error => {
-          dispatch(postTweetFailure(error));
+          dispatch(postTweetFailure(error.message));
       })
   }
 };
@@ -118,7 +118,7 @@ export const updateTweetClapsStartAsync = (id: number, newTweetItem: Tweet) => {
         dispatch(updateTweetClapsSuccess(response.data.id));
       })
       .catch(error => {
-        dispatch(updateTweetClapsFailure(error));
+        dispatch(updateTweetClapsFailure(error.message));
       })
   }
 };
@@ -150,7 +150,7 @@ export const deleteTweetStartAsync = (id: number) => {
           dispatch(deleteTweetSuccess());
       })
       .catch(error => {
-          dispatch(deleteTweetFailure(error));
+          dispatch(deleteTweetFailure(error.message));
       })
   }
 };
@@ -183,7 +183,7 @@ export const fetchSingleUserTweetsStartAsync = (page: number, limit: number, use
         dispatch(fetchSingleUserTweetsSuccess({ tweets: response.data, count: response.headers['x-total-count'] }));
       })
       .catch(error => {
-        dispatch(fetchSingleUserTweetsFailure(error));
+        dispatch(fetchSingleUserTweetsFailure(error.message));
       })
   }
 };
@@ -216,7 +216,7 @@ export const fetchUserEntireTweetsStartAsync = (userId: number) => {
         dispatch(fetchUserEntireTweetsSuccess(response.data));
       })
       .catch(error => {
-        dispatch(fetchUserEntireTweetsFailure(error));
+        dispatch(fetchUserEntireTweetsFailure(error.message));
       })
   }
 };
