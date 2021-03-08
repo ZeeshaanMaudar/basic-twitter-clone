@@ -153,8 +153,24 @@ const TweetsList: FC<TweetListProps> = ({ page, limit, singleUser }) => {
     }
   }
 
-  if (tweetsError || usersError || usersDetailsError || errorPosting || errorDeleting) {
-    return <h1>Something went wrong!</h1>;
+  if (tweetsError) {
+    return <h1>{tweetsError}</h1>;
+  }
+
+  if (usersError) {
+    return <h1>{usersError}</h1>;
+  }
+
+  if (usersDetailsError) {
+    return <h1>{usersDetailsError}</h1>;
+  }
+
+  if (errorPosting) {
+    return <h1>{errorPosting}</h1>;
+  }
+  
+  if (errorDeleting) {
+    return <h1>{errorDeleting}</h1>;
   }
 
   if (loadingTweets || loadingUsers || loadingUsersDetails || isPosting || isDeleting) {
