@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { SpinnerCircular } from 'spinners-react';
 
 export const Wrapper = styled.div`
   border: 1px solid #eee;
@@ -61,4 +62,10 @@ export const FormHeader = styled.div`
 export const FormFooter = styled.div`
   display: flex;
   justify-content: flex-end;
+`
+
+export const Spinner = styled(SpinnerCircular)`
+  display: block;
+  margin: 0 auto;
+  padding-bottom: 40px;
 `

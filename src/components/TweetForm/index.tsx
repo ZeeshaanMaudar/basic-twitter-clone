@@ -14,7 +14,8 @@ import {
   Button,
   ProfilePic,
   FormHeader,
-  FormFooter
+  FormFooter,
+  Spinner
 } from './styled';
 
 interface User {
@@ -28,7 +29,7 @@ interface User {
 const callImage = (user: User, isLoadingUser: boolean) => {
 
   if (isLoadingUser) {
-    return <div>Loading...</div>
+    return <Spinner />
   }
 
   if (user) {
