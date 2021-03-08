@@ -9,7 +9,8 @@ import {
   Title,
   Heading,
   ContentWrapper,
-  NumberOfTweets
+  NumberOfTweets,
+  Spinner
 } from './styled';
 
 interface StatsProps {
@@ -109,7 +110,7 @@ const Statistics: FC<StatsProps> = ({ userId }) => {
   }
 
   if (loading) {
-    return <div>Loading...</div>
+    return <Spinner />
   }
 
   if (error) {

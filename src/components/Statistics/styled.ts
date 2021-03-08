@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { SpinnerCircular } from 'spinners-react';
 
 export const Wrapper = styled.div`
   padding: 10px;
@@ -36,4 +37,10 @@ export const Heading = styled.h4`
 
 export const NumberOfTweets = styled.span`
   color: #848484;
+`
+
+export const Spinner = styled(SpinnerCircular)`
+  display: block;
+  margin: 0 auto;
+  padding-bottom: 40px;
 `
