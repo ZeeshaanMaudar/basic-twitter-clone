@@ -20,6 +20,10 @@ export const Button = styled.button`
     background: #0a76b9;
   }
 
+  &:disabled {
+    background: #bbb;
+  }
+
   @media screen and (min-width: 550px) {
     width: 100px;
   }
