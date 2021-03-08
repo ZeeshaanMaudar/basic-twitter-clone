@@ -22,7 +22,7 @@ import { fetchTweetsStartAsync, fetchSingleUserTweetsStartAsync } from '../../re
 
 import Tweet from '../Tweet';
 
-import { Wrapper, Title } from './styled';
+import { Wrapper, Title, Spinner } from './styled';
 
 interface TweetListProps {
   page: number,
@@ -174,7 +174,7 @@ const TweetsList: FC<TweetListProps> = ({ page, limit, singleUser }) => {
   }
 
   if (loadingTweets || loadingUsers || loadingUsersDetails || isPosting || isDeleting) {
-    return <div>Loading...</div>;
+    return <Spinner />;
   }
 
   return (
