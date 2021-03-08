@@ -136,7 +136,7 @@ const Tweet: FC<TweetCardProps> = ({ tweetItem, user, userDetails }) => {
           <TweetFooter>
             <ClapButton
               onClick={incrementCount}
-              disabled={loading && id === currentId}
+              disabled={(loading && id === currentId) || userId === 1}
             />
             <span>Claps: {count}</span>
           </TweetFooter>
