@@ -8,7 +8,22 @@ import Profile from '../components/Profile';
 import TweetsList from '../components/TweetsList';
 import Pagination from '../components/Pagination';
 import Layout from '../components/Layout';
+import Statistics from '../components/Statistics';
 
+
+const callTabs = (tab: boolean, page: number, limit: number, setLimit: (event: any) => void, setPage: (event: any) => void, userId: string ) => {
+
+  if (tab) {
+    return <Statistics {...{ userId }} />;
+  }
+
+  return (
+    <div>
+      <TweetsList {...{ page, limit }} singleUser={true} />
+      <Pagination {...{ page, limit, setLimit, setPage }} />
+    </div>
+  );
+}
 
 const UserDetailsView: FC = () => {
 
@@ -16,6 +31,8 @@ const UserDetailsView: FC = () => {
 
   const [limit, setLimit] = useState(5);
   const [page, setPage] = useState(1);
+
+  const [tab, setTab] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -28,12 +45,32 @@ const UserDetailsView: FC = () => {
     dispatch(fetchSingleUserDetailsStartAsync(Number(userId)));
   }
 
+  const changeToTweets = () => {
+    setTab(false);
+  }
+
+  const changeToStatistics = () => {
+    setTab(true);
+  }
+
   return (
     <Layout>
       <Profile />
-      <TweetsList {...{ page, limit }} singleUser={true} />
-      <Pagination {...{ page, limit, setLimit, setPage }} />
-      <div>Statistics Section</div>
+      <div>
+        <button
+          onClick={changeToTweets}
+          disabled={!tab}
+        >
+          All Tweets
+        </button>
+        <button
+          onClick={changeToStatistics}
+          disabled={tab}
+        >
+          Statistics
+        </button>
+      </div>
+      {callTabs(tab, page, limit, setLimit, setPage, userId)}
     </Layout>
   );
 }
