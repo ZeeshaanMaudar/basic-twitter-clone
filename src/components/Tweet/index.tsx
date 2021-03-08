@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
 
 import { updateTweetClapsStartAsync, deleteTweetStartAsync } from '../../redux/tweets/tweetsActions';
-import { selectIsUpdating, selectCurrentId  } from '../../redux/tweets/tweetsSelectors';
+import { selectIsUpdating, selectCurrentId, selectErrorUpdating  } from '../../redux/tweets/tweetsSelectors';
 
 import VerifiedIcon from '../svg/verified.svg';
 
@@ -66,6 +66,7 @@ const Tweet: FC<TweetCardProps> = ({ tweetItem, user, userDetails }) => {
 
   const [count, setCount] = useState(claps);
   const loading = useSelector(selectIsUpdating);
+  const errorUpdating = useSelector(selectErrorUpdating);
   const currentId = useSelector(selectCurrentId);
 
   const dispatch = useDispatch();
@@ -91,6 +92,10 @@ const Tweet: FC<TweetCardProps> = ({ tweetItem, user, userDetails }) => {
 
   const handleDelete = () => {
     dispatch(deleteTweetStartAsync(id));
+  }
+
+  if (errorUpdating) {
+    return <h1>{errorUpdating}</h1>;
   }
 
   const timeFromNow = moment(date, 'YYYY-MM-DD, h:mm:ss a').fromNow();
