@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 import ClapIcon from '../svg/clap-icon.svg';
 import ClapIconBlue from '../svg/clap-icon-blue.svg';
+import ClapIconDisabled from '../svg/clap-icon-disabled.svg';
 import DeleteIcon from '../svg/delete-icon.svg';
 import DeleteIconRed from '../svg/delete-icon-red.svg';
 
@@ -124,6 +125,10 @@ export const ClapButton = styled.button`
 
   &:hover {
     background-image: url(${ClapIconBlue})
+  }
+
+  &:disabled {
+    background-image: url(${ClapIconDisabled});
   }
 `
 
