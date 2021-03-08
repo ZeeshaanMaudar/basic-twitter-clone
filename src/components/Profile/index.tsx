@@ -10,6 +10,8 @@ import {
   selectErrorFetchingUserDetails
 } from '../../redux/singleUser/singleUserSelectors';
 
+import TweetForm from '../TweetForm';
+
 interface UserDetails {
   id: number,
   firstName: string,
@@ -34,6 +36,7 @@ const callProfile = (user: User, userDetails: UserDetails) => {
 
     return (
       <div>
+        {id === 1 && <TweetForm />}
         <img src={profilePic} alt={`${username}'s profile avatar`} style={{ width: '100px', height: '100px'}} />
         <div>
           <div>
