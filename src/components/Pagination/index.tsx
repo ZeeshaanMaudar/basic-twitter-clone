@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
 
-import { selectTweetsCount } from '../../redux/tweets/tweetsSelectors';
+import { selectTweetsCount, selectIsFetchingTweets } from '../../redux/tweets/tweetsSelectors';
 
 import {
   PaginationWrapper,
@@ -23,6 +23,7 @@ interface PaginationProps {
 const Pagination: FC<PaginationProps> = ({ page, limit, setLimit, setPage }) => {
 
   const totalCount = useSelector(selectTweetsCount);
+  const loadingTweets = useSelector(selectIsFetchingTweets);
 
   let numberOfPages = 1;
 
@@ -44,6 +45,10 @@ const Pagination: FC<PaginationProps> = ({ page, limit, setLimit, setPage }) => 
 
   const handleLimitChange = (event: any) => {
     setLimit(event.target.value)
+  }
+
+  if (loadingTweets) {
+    return null;
   }
 
   return (
