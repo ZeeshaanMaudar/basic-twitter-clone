@@ -37,7 +37,7 @@ export const fetchTweetsStartAsync = (page: number, limit: number) => {
 
     dispatch(fetchTweetsRequest());
 
-    const endpoint = `${process.env.REACT_APP_API}/twee?_sort=date&_order=desc&_page=${page}&_limit=${limit}`;
+    const endpoint = `${process.env.REACT_APP_API}/tweets?_sort=date&_order=desc&_page=${page}&_limit=${limit}`;
 
     axios.get(endpoint)
       .then(response => {
