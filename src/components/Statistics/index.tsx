@@ -4,29 +4,55 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserEntireTweetsStartAsync } from '../../redux/tweets/tweetsActions';
 import { selectIsFetchingAllTweetsPerUser, selectlastTenDaysTweetsStats, selectErrorAllTweetsPerUser } from '../../redux/tweets/tweetsSelectors';
 
+import {
+  Wrapper,
+  Title,
+  Heading,
+  ContentWrapper,
+  NumberOfTweets
+} from './styled';
+
 interface StatsProps {
   userId: string
 }
 
 const callDescription = (numberOfDaysAgo: number) => {
   if (numberOfDaysAgo === 0) {
-    return <span>Today:</span>
+    return <Heading>Today:</Heading>
   } else if (numberOfDaysAgo === 1) {
-    return <span>Yesterday:</span>
+    return <Heading>Yesterday:</Heading>
   } else {
-    return <span>{numberOfDaysAgo} days ago:</span>
+    return <Heading>{numberOfDaysAgo} days ago:</Heading>
   }
 
+}
+
+const callTweetsString = (stats: any, numberOfDaysAgo: number) => {
+
+  if (stats[numberOfDaysAgo] === 1) {
+    return 'tweet';
+  }
+
+  return 'tweets'
+}
+
+const callTweetsStringForTotalCount = (tweetsCount: number) => {
+
+  if (tweetsCount === 1) {
+    return 'tweet';
+  }
+
+  return 'tweets'
 }
 
 const numberOfTweets = (stats: any, numberOfDaysAgo: number) => {
 
   if (stats) {
     return (
-      <div key={numberOfDaysAgo}>
+      <ContentWrapper key={numberOfDaysAgo}>
         {callDescription(numberOfDaysAgo)}
-        <span>{stats[numberOfDaysAgo] ? stats[numberOfDaysAgo] : 0}</span>
-      </div>
+        <NumberOfTweets>{stats[numberOfDaysAgo] ? stats[numberOfDaysAgo] : 0} {callTweetsString(stats, numberOfDaysAgo)}</NumberOfTweets>
+      </ContentWrapper>
     );
   }
 
@@ -55,10 +81,10 @@ const callTotalForPastTendays = (stats: any) => {
     });
 
     return (
-      <div>
-        <span>Total Count:</span>
-        <span>{tweetsCount}</span>
-      </div>
+      <ContentWrapper>
+        <Heading>Total Count:</Heading>
+        <NumberOfTweets>{tweetsCount} {callTweetsStringForTotalCount(tweetsCount)}</NumberOfTweets>
+      </ContentWrapper>
     );
     
   }
@@ -91,10 +117,11 @@ const Statistics: FC<StatsProps> = ({ userId }) => {
   }
 
   return (
-    <div>
+    <Wrapper>
+      <Title>Number of Tweets per day of the last 10 days:</Title>
       {callListOfStats(stats)}
       {callTotalForPastTendays(stats)}
-    </div>
+    </Wrapper>
   )
 
 }
