@@ -10,6 +10,7 @@ import Pagination from '../../components/Pagination';
 import Layout from '../../components/Layout';
 import Statistics from '../../components/Statistics';
 
+import { ButtonsWrapper, Button } from './styled';
 
 const callTabs = (tab: boolean, page: number, limit: number, setLimit: (event: any) => void, setPage: (event: any) => void, userId: string ) => {
 
@@ -56,20 +57,20 @@ const UserDetailsView: FC = () => {
   return (
     <Layout>
       <Profile />
-      <div>
-        <button
+      <ButtonsWrapper>
+        <Button
           onClick={changeToTweets}
           disabled={!tab}
         >
           All Tweets
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={changeToStatistics}
           disabled={tab}
         >
           Statistics
-        </button>
-      </div>
+        </Button>
+      </ButtonsWrapper>
       {callTabs(tab, page, limit, setLimit, setPage, userId)}
     </Layout>
   );
