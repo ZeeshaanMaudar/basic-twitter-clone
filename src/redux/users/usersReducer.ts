@@ -3,10 +3,10 @@ import * as actionTypes from './usersActionTypes';
 const initialState = {
     isFetchingUsers: false,
     usersList: [],
-    errorUsers: null,
+    errorUsers: '',
     isFetchingUsersDetails: false,
     usersDetailsList: [],
-    errorUsersDetails: null
+    errorUsersDetails: ''
 };
 
 const usersReducer = (state = initialState, action: any) => {

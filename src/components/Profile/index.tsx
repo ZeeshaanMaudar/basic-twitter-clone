@@ -75,8 +75,12 @@ const Profile = () => {
   const userDetails = useSelector(selectUserDetails);
   const errorUserDetails = useSelector(selectErrorFetchingUserDetails);
 
-  if (errorUser || errorUserDetails) {
-    return <h1>Something went wrong!</h1>;
+  if (errorUser) {
+    return <h1>{errorUser}</h1>;
+  }
+
+  if (errorUserDetails) {
+    return <h1>{errorUserDetails}</h1>;
   }
 
   if (loadingUser || loadingUserDetails) {

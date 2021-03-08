@@ -113,7 +113,7 @@ const Statistics: FC<StatsProps> = ({ userId }) => {
   }
 
   if (error) {
-    return <h1>Something went wrong!</h1>
+    return <h1>{error}</h1>
   }
 
   return (

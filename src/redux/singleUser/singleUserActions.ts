@@ -45,7 +45,7 @@ export const fetchSingleUserStartAsync = (userId: number) => {
         dispatch(fetchSingleUserSuccess(response.data));
       })
       .catch(error => {
-        dispatch(fetchSingleUserFailure(error));
+        dispatch(fetchSingleUserFailure(error.message));
       })
   }
 };
@@ -78,7 +78,7 @@ export const fetchSingleUserDetailsStartAsync = (userDetailsId: number) => {
         dispatch(fetchSingleUserDetailsSuccess(response.data));
       })
       .catch(error => {
-        dispatch(fetchSingleUserDetailsFailure(error));
+        dispatch(fetchSingleUserDetailsFailure(error.message));
       })
   }
 };
