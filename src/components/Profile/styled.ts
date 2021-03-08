@@ -55,4 +55,3 @@ export const Username = styled.p`
 export const BirthDate = styled.p`
   color: #848484;
 `
-
