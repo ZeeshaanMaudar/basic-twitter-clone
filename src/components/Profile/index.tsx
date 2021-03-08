@@ -18,7 +18,8 @@ import {
   ProfilePic,
   FullName,
   Username,
-  BirthDate
+  BirthDate,
+  Spinner
 } from './styled';
 
 interface UserDetails {
@@ -84,7 +85,7 @@ const Profile = () => {
   }
 
   if (loadingUser || loadingUserDetails) {
-    return <div>Loading...</div>;
+    return <Spinner />;
   }
 
   return (
