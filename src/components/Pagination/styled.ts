@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import ArrowLeftIcon from '../svg/arrow-left.svg';
 import ArrowLeftIconDisabled from '../svg/arrow-left-disabled.svg';
 import ArrowRightIcon from '../svg/arrow-right.svg';
