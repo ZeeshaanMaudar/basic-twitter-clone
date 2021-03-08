@@ -1,11 +1,30 @@
 import React, { FC, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
 import moment from 'moment';
 
 import { updateTweetClapsStartAsync, deleteTweetStartAsync } from '../../redux/tweets/tweetsActions';
 import { selectIsUpdating, selectCurrentId  } from '../../redux/tweets/tweetsSelectors';
 
+import VerifiedIcon from '../svg/verified.svg';
+
+import {
+  Wrapper,
+  ProfilePic,
+  TweetContent,
+  FirstName,
+  StyledLink,
+  UserName,
+  TweetHeader,
+  StyledDate,
+  HeaderLeft,
+  HeaderRight,
+  StyledTweet,
+  NameWrapper,
+  VerifiedImage,
+  TweetFooter,
+  ClapButton,
+  DeleteButton
+} from './styled';
 interface TweetCardProps {
   tweetItem: {
     id: number,
@@ -33,7 +52,7 @@ const callButton = (userId: number, handleDelete: () => void) => {
 
   if (userId === 1) {
     return (
-      <button onClick={handleDelete}>Delete</button>
+      <DeleteButton onClick={handleDelete} />
     );
   }
 
@@ -82,27 +101,47 @@ const Tweet: FC<TweetCardProps> = ({ tweetItem, user, userDetails }) => {
     const { firstName } = userDetails;
 
     return (
-      <div style={{ border: '1px solid red'}}>
+      <Wrapper>
         <div>
-          <Link to={`/${userId}`}>
-            <img src={profilePic} alt={`${username}'s profile avatar`} style={{ width: '50px', height: '50px'}} />
-          </Link>
+          <StyledLink to={`/${userId}`}>
+            <ProfilePic src={profilePic} alt={`${username}'s profile avatar`} />
+          </StyledLink>
         </div>
-        <div>
-          <div>
-            <Link to={`/${userId}`}>
-              <h4>{firstName}</h4>
-            </Link>
-            <Link to={`/${userId}`}>
-              <span>{username}</span>
-            </Link>
-            <span>{timeFromNow}</span>
-            {callButton(userId, handleDelete)}
-          </div>
-          <p>{tweet}</p>
-          <button onClick={incrementCount} disabled={loading && id === currentId}>Claps: {count}</button>
-        </div>
-      </div>
+        <TweetContent>
+          <TweetHeader>
+            <HeaderLeft>
+              <div>
+                <NameWrapper>
+                  <StyledLink to={`/${userId}`}>
+                    <FirstName>{firstName}</FirstName>
+                  </StyledLink>
+                  <VerifiedImage src={ VerifiedIcon} alt='verified' />
+                </NameWrapper>
+              </div>
+              <div>
+                <StyledLink to={`/${userId}`}>
+                  <UserName>{username}</UserName>
+                </StyledLink>
+              </div>
+              <div>
+                <StyledDate> {timeFromNow}</StyledDate>
+              </div>
+            </HeaderLeft>
+            
+            <HeaderRight>
+              {callButton(userId, handleDelete)}
+            </HeaderRight>
+          </TweetHeader>
+          <StyledTweet>{tweet}</StyledTweet>
+          <TweetFooter>
+            <ClapButton
+              onClick={incrementCount}
+              disabled={(loading && id === currentId) || userId === 1}
+            />
+            <span>Claps: {count}</span>
+          </TweetFooter>
+        </TweetContent>
+      </Wrapper>
     );
   } else {
     return null;

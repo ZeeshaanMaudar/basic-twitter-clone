@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { fetchSingleUserStartAsync, fetchSingleUserDetailsStartAsync } from '../redux/singleUser/singleUserActions';
@@ -7,6 +7,7 @@ import { fetchSingleUserStartAsync, fetchSingleUserDetailsStartAsync } from '../
 import Profile from '../components/Profile';
 import TweetsList from '../components/TweetsList';
 import Pagination from '../components/Pagination';
+import Layout from '../components/Layout';
 
 
 const UserDetailsView: FC = () => {
@@ -28,14 +29,12 @@ const UserDetailsView: FC = () => {
   }
 
   return (
-    <div>
-      <Link to='/'>Go back home</Link>
+    <Layout>
       <Profile />
       <TweetsList {...{ page, limit }} singleUser={true} />
       <Pagination {...{ page, limit, setLimit, setPage }} />
-      <div>Tweets Section</div>
       <div>Statistics Section</div>
-    </div>
+    </Layout>
   );
 }
 

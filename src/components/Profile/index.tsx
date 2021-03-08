@@ -10,6 +10,17 @@ import {
   selectErrorFetchingUserDetails
 } from '../../redux/singleUser/singleUserSelectors';
 
+import TweetForm from '../TweetForm';
+
+import {
+  StyledLink,
+  ProfileWrapper,
+  ProfilePic,
+  FullName,
+  Username,
+  BirthDate
+} from './styled';
+
 interface UserDetails {
   id: number,
   firstName: string,
@@ -34,16 +45,18 @@ const callProfile = (user: User, userDetails: UserDetails) => {
 
     return (
       <div>
-        <img src={profilePic} alt={`${username}'s profile avatar`} style={{ width: '100px', height: '100px'}} />
-        <div>
+        <StyledLink to='/'>Go Back</StyledLink>
+        <ProfileWrapper>
           <div>
-            <h4>{firstName} {lastName}</h4>
-            <h6>{username}</h6>
+            <ProfilePic src={profilePic} alt={`${username}'s profile avatar`} />
           </div>
           <div>
-            <p>Born {birthday}</p>
+            <FullName>{firstName} {lastName}</FullName>
+            <Username>{username}</Username>
+            <BirthDate>Born {birthday}</BirthDate>
           </div>
-        </div>
+        </ProfileWrapper>
+        {id === 1 && <TweetForm />}
       </div>
     );
   }

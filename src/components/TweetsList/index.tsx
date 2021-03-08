@@ -22,6 +22,8 @@ import { fetchTweetsStartAsync, fetchSingleUserTweetsStartAsync } from '../../re
 
 import Tweet from '../Tweet';
 
+import { Wrapper, Title } from './styled';
+
 interface TweetListProps {
   page: number,
   limit: number,
@@ -92,6 +94,14 @@ const callTweetsList = ({ tweetsList, usersList, usersDetailsList, singleUser, u
   );
 }
 
+const callTitle = (singleUser: boolean) => {
+  if (singleUser) {
+    return <Title>My Tweets</Title>;
+  }
+
+  return <Title>Latest Tweets</Title>;
+}
+
 const TweetsList: FC<TweetListProps> = ({ page, limit, singleUser }) => {
 
   const dispatch = useDispatch();
@@ -151,9 +161,10 @@ const TweetsList: FC<TweetListProps> = ({ page, limit, singleUser }) => {
   }
 
   return (
-    <div>
+    <Wrapper>
+      {callTitle(singleUser)}
       {callTweetsList({ tweetsList, usersList, usersDetailsList, singleUser, user, userDetails })}
-    </div>
+    </Wrapper>
   );
 }
 
