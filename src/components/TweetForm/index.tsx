@@ -9,6 +9,7 @@ import { selectUser, selectIsFetchingUser } from '../../redux/singleUser/singleU
 
 import {
   Wrapper,
+  Title,
   TextArea,
   Button,
   ProfilePic,
@@ -74,6 +75,7 @@ const TweetForm: FC = () => {
 
   return (
     <Wrapper>
+      <Title>Post Tweet</Title>
       <form onSubmit={handleSubmit}>
         <FormHeader>
           {callImage(user, isLoadingUser)}
