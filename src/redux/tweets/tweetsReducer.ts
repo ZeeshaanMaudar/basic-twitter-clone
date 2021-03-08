@@ -14,7 +14,10 @@ const initialState = {
     errorUpdating: null,
     isDeleting: false,
     deleted: false,
-    errorDeleting: ''
+    errorDeleting: '',
+    isFetchingAllTweets: false,
+    totalTweetsList: [],
+    errorAllTweetsPerUser: ''
 };
 
 const tweetsReducer = (state = initialState, action: any) => {
@@ -119,6 +122,25 @@ const tweetsReducer = (state = initialState, action: any) => {
                 ...state,
                 errorFetching: action.payload,
                 isFetchingTweets: false
+            }
+
+        // fetch entire list per user
+        case actionTypes.FETCH_ALL_SINGLE_TWEETS_REQUEST:
+            return {
+                ...state,
+                isFetchingAllTweets: true
+            }
+        case actionTypes.FETCH_ALL_SINGLE_TWEETS_SUCCESS:
+            return {
+                ...state,
+                totalTweetsList: action.payload,
+                isFetchingAllTweets: false
+            }
+        case actionTypes.FETCH_ALL_SINGLE_TWEETS_FAILURE:
+            return {
+                ...state,
+                errorAllTweetsPerUser: action.payload,
+                isFetchingAllTweets: false
             }
         
         default:

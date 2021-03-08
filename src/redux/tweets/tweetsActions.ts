@@ -187,3 +187,36 @@ export const fetchSingleUserTweetsStartAsync = (page: number, limit: number, use
       })
   }
 };
+
+// fetch single user entire tweets list
+export const fetchUserEntireTweetsRequest = () => ({
+  type: actionTypes.FETCH_ALL_SINGLE_TWEETS_REQUEST,
+});
+
+export const fetchUserEntireTweetsSuccess = (tweetsList: Tweet[]) => ({
+  type: actionTypes.FETCH_ALL_SINGLE_TWEETS_SUCCESS,
+  payload: tweetsList
+});
+
+export const fetchUserEntireTweetsFailure = (error: string) => ({
+  type: actionTypes.FETCH_ALL_SINGLE_TWEETS_FAILURE,
+  payload: error
+});
+
+export const fetchUserEntireTweetsStartAsync = (userId: number) => {
+
+  return (dispatch: any) => {
+
+    dispatch(fetchUserEntireTweetsRequest());
+
+    const endpoint = `${process.env.REACT_APP_API}/tweets?userId=${userId}&_sort=date&_order=desc`;
+
+    axios.get(endpoint)
+      .then(response => {
+        dispatch(fetchUserEntireTweetsSuccess(response.data));
+      })
+      .catch(error => {
+        dispatch(fetchUserEntireTweetsFailure(error));
+      })
+  }
+};
