@@ -3,14 +3,6 @@ import moment from 'moment';
 
 import { TweetType } from '../../common/interface';
 
-interface TweetType {
-  id: number,
-  tweet: string,
-  date: string,
-  claps: number,
-  userId: number
-}
-
 interface State {
   tweets: {
     isFetchingTweets: boolean,
