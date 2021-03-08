@@ -3,16 +3,10 @@ import moment from 'moment';
 
 import * as actionTypes from './tweetsActionTypes';
 
-interface Tweet {
-  id: number,
-  tweet: string,
-  date: string,
-  claps: number,
-  userId: number
-}
+import { TweetType } from '../../common/interface';
 
 interface TweetAndCount {
-  tweets: Tweet[],
+  tweets: TweetType[],
   count: number
 }
 
@@ -105,7 +99,7 @@ export const updateTweetClapsFailure = (error: string) => ({
   payload: error
 });
 
-export const updateTweetClapsStartAsync = (id: number, newTweetItem: Tweet) => {
+export const updateTweetClapsStartAsync = (id: number, newTweetItem: TweetType) => {
 
   return (dispatch: any) => {
 
@@ -193,7 +187,7 @@ export const fetchUserEntireTweetsRequest = () => ({
   type: actionTypes.FETCH_ALL_SINGLE_TWEETS_REQUEST,
 });
 
-export const fetchUserEntireTweetsSuccess = (tweetsList: Tweet[]) => ({
+export const fetchUserEntireTweetsSuccess = (tweetsList: TweetType[]) => ({
   type: actionTypes.FETCH_ALL_SINGLE_TWEETS_SUCCESS,
   payload: tweetsList
 });

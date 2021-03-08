@@ -22,6 +22,8 @@ import { fetchTweetsStartAsync, fetchSingleUserTweetsStartAsync } from '../../re
 
 import Tweet from '../Tweet';
 
+import { User, UserDetails, TweetType } from '../../common/interface';
+
 import { Wrapper, Title, Spinner } from './styled';
 
 interface TweetListProps {
@@ -30,29 +32,8 @@ interface TweetListProps {
   singleUser: boolean
 }
 
-interface TweetProps {
-  id: number,
-  tweet: string,
-  date: string,
-  claps: number,
-  userId: number
-}
-interface User {
-  id: number,
-  username: string,
-  role: string,
-  usersDetailsId: number,
-  profilePic: string
-}
-
-interface UserDetails {
-  id: number,
-  firstName: string,
-  lastName: string,
-  birthday: string
-}
 interface CardArgs {
-  tweetsList: TweetProps[],
+  tweetsList: TweetType[],
   usersList: User[],
   usersDetailsList: UserDetails[],
   singleUser: boolean,

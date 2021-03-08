@@ -7,6 +7,8 @@ import { postTweetStartAsync } from '../../redux/tweets/tweetsActions';
 import { fetchSingleUserStartAsync } from '../../redux/singleUser/singleUserActions';
 import { selectUser, selectIsFetchingUser, selectErrorFetchingUser } from '../../redux/singleUser/singleUserSelectors';
 
+import { User } from '../../common/interface';
+
 import {
   Wrapper,
   Title,
@@ -17,14 +19,6 @@ import {
   FormFooter,
   Spinner
 } from './styled';
-
-interface User {
-  id: number,
-  username: string,
-  role: string,
-  usersDetailsId: number,
-  profilePic: string
-}
 
 const callImage = (user: User, isLoadingUser: boolean) => {
 
