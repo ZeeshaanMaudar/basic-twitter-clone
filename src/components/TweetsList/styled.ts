@@ -15,4 +15,3 @@ export const Title = styled.h2`
   margin: 0;
   margin-bottom: 30px;
 `;
-
