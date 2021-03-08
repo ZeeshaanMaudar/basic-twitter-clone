@@ -3,6 +3,18 @@ import { useSelector } from 'react-redux';
 
 import { selectTweetsCount } from '../../redux/tweets/tweetsSelectors';
 
+
+
+import {
+  PaginationWrapper,
+  ButtonsWrapper,
+  PreviousButton,
+  NextButton,
+  PageContent,
+  LimitWrapper,
+  LimitSelector
+} from './styled';
+
 interface PaginationProps {
   page: number,
   limit: number,
@@ -37,30 +49,34 @@ const Pagination: FC<PaginationProps> = ({ page, limit, setLimit, setPage }) => 
   }
 
   return (
-    <div>
-      <button
-        disabled={page <= 1}
-        onClick={handlePrevious}
-      >
-        Previous
-      </button>
-      <span>Page {page} of {numberOfPages}</span>
-      <button
-        disabled={page >= numberOfPages}
-        onClick={handleNext}
-      >
-        Next
-      </button>
-      <span>Rows per page</span>
-      <select onChange={handleLimitChange} defaultValue={5}>
-        <option value={5}>5</option>
-        <option value={10}>10</option>
-        <option value={25}>25</option>
-        <option value={50}>50</option>
-        <option value={100}>100</option>
-        <option value={totalCount}>All</option>
-      </select>
-    </div>
+    <PaginationWrapper>
+      <ButtonsWrapper>
+        <PreviousButton
+          disabled={page <= 1}
+          onClick={handlePrevious}
+        >
+          Previous
+        </PreviousButton>
+        <PageContent>Page <strong>{page}</strong> of {numberOfPages}</PageContent>
+        <NextButton
+          disabled={page >= numberOfPages}
+          onClick={handleNext}
+        >
+          Next
+        </NextButton>
+      </ButtonsWrapper>
+      
+      <LimitWrapper>
+        <span>Rows per page</span>
+        <LimitSelector onChange={handleLimitChange} defaultValue={5}>
+          <option value={5}>5</option>
+          <option value={10}>10</option>
+          <option value={25}>25</option>
+          <option value={50}>50</option>
+          <option value={100}>100</option>
+        </LimitSelector>
+      </LimitWrapper>
+    </PaginationWrapper>
   );
 }
 
