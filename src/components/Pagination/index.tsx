@@ -10,8 +10,7 @@ import {
   NextButton,
   PageContent,
   LimitWrapper,
-  LimitSelector,
-  Spinner
+  LimitSelector
 } from './styled';
 
 interface PaginationProps {
