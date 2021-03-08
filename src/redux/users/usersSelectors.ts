@@ -18,10 +18,10 @@ interface State {
   users: {
     isFetchingUsers: boolean,
     usersList: User[],
-    errorUsers: string | null,
+    errorUsers: string,
     isFetchingUsersDetails: boolean,
     usersDetailsList: UserDetails[]
-    errorUsersDetails: string | null
+    errorUsersDetails: string
   }
 }
 
