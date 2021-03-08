@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import moment from 'moment';
 
 interface Tweet {
   id: number,
@@ -23,7 +24,10 @@ interface State {
     errorUpdating: string | null,
     isDeleting: boolean,
     deleted: boolean,
-    errorDeleting: string
+    errorDeleting: string,
+    isFetchingAllTweets: boolean,
+    totalTweetsList: Tweet[],
+    errorAllTweetsPerUser: string
   }
 }
 
@@ -101,4 +105,50 @@ export const selectSuccessfullyDeleted = createSelector(
 export const selectErrorDeleting = createSelector(
   [selectTweets],
   tweets => tweets.errorDeleting
+);
+
+// fetch all Tweets per user
+export const selectIsFetchingAllTweetsPerUser = createSelector(
+  [selectTweets],
+  tweets => tweets.isFetchingAllTweets
+);
+
+export const selectlastTenDaysTweetsStats = createSelector(
+  [selectTweets],
+  tweets => {
+
+    const currentDate = moment(new Date());
+
+    let dateArray: any = [];
+
+    for (let day = 0; day <= 10; day++) {
+      const daysAgo = moment(currentDate).subtract(day, 'days').format('YYYY-MM-DD');
+      const daysCount = tweets.totalTweetsList.filter(tweet => moment(tweet.date).isSameOrAfter(daysAgo));
+      dateArray = [...daysCount];
+
+    }
+
+    let filteredObject = dateArray.reduce((accumulator: any, currentTweet: Tweet) => {
+
+      const transformedTweet = {
+        ...currentTweet,
+        datediffFromNow: moment(currentDate).diff(moment(currentTweet.date), 'days')
+      }
+
+      if (!accumulator[transformedTweet.datediffFromNow]) {
+        accumulator[transformedTweet.datediffFromNow] = 0;
+      }
+
+      accumulator[transformedTweet.datediffFromNow]++;
+
+      return accumulator;
+    }, {});
+
+    return filteredObject;
+  }
+);
+
+export const selectErrorAllTweetsPerUser = createSelector(
+  [selectTweets],
+  tweets => tweets.errorAllTweetsPerUser
 );
