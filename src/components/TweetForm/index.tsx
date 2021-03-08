@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { postTweetStartAsync } from '../../redux/tweets/tweetsActions';
 
 import { fetchSingleUserStartAsync } from '../../redux/singleUser/singleUserActions';
-import { selectUser, selectIsFetchingUser } from '../../redux/singleUser/singleUserSelectors';
+import { selectUser, selectIsFetchingUser, selectErrorFetchingUser } from '../../redux/singleUser/singleUserSelectors';
 
 import {
   Wrapper,
@@ -50,6 +50,7 @@ const TweetForm: FC = () => {
 
 
   const isLoadingUser = useSelector(selectIsFetchingUser);
+  const errorLoadingUser = useSelector(selectErrorFetchingUser);
   const user = useSelector(selectUser);
 
   useEffect(() => {
@@ -72,6 +73,9 @@ const TweetForm: FC = () => {
     }
   }
 
+  if (errorLoadingUser) {
+    return <h1>{errorLoadingUser}</h1>;
+  }
 
   return (
     <Wrapper>
