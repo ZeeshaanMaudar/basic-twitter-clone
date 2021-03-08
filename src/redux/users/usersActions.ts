@@ -2,20 +2,7 @@ import axios from 'axios';
 
 import * as actionTypes from './usersActionTypes';
 
-interface User {
-  id: number,
-  username: string,
-  role: string,
-  usersDetailsId: number,
-  profilePic: string
-}
-
-interface UserDetails {
-  id: number,
-  firstName: string,
-  lastName: string,
-  birthday: string
-}
+import { User, UserDetails } from '../../common/interface';
 
 // fetch users list
 export const fetchUsersRequest = () => ({

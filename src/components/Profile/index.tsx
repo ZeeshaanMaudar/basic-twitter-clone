@@ -12,6 +12,8 @@ import {
 
 import TweetForm from '../TweetForm';
 
+import { User, UserDetails } from '../../common/interface';
+
 import {
   StyledLink,
   ProfileWrapper,
@@ -22,26 +24,11 @@ import {
   Spinner
 } from './styled';
 
-interface UserDetails {
-  id: number,
-  firstName: string,
-  lastName: string,
-  birthday: string
-}
-
-interface User {
-  id: number,
-  username: string,
-  role: string,
-  usersDetailsId: number,
-  profilePic: string
-}
-
 const callProfile = (user: User, userDetails: UserDetails) => {
 
   if (user && userDetails) {
 
-    const { id, username, role, usersDetailsId, profilePic } = user;
+    const { id, username, profilePic } = user;
     const { firstName, lastName, birthday } = userDetails;
 
     return (

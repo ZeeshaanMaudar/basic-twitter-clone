@@ -1,19 +1,7 @@
 import { createSelector } from 'reselect';
 
-interface User {
-  id: number,
-  username: string,
-  role: string,
-  usersDetailsId: number,
-  profilePic: string
-}
+import { User, UserDetails } from '../../common/interface';
 
-interface UserDetails {
-  id: number,
-  firstName: string,
-  lastName: string,
-  birthday: string
-}
 interface State {
   users: {
     isFetchingUsers: boolean,

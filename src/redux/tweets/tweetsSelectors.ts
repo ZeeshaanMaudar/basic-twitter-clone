@@ -1,18 +1,12 @@
 import { createSelector } from 'reselect';
 import moment from 'moment';
 
-interface Tweet {
-  id: number,
-  tweet: string,
-  date: string,
-  claps: number,
-  userId: number
-}
+import { TweetType } from '../../common/interface';
 
 interface State {
   tweets: {
     isFetchingTweets: boolean,
-    tweets: Tweet[],
+    tweets: TweetType[],
     count: number,
     errorFetching: string,
     isPosting: boolean,
@@ -26,7 +20,7 @@ interface State {
     deleted: boolean,
     errorDeleting: string,
     isFetchingAllTweets: boolean,
-    totalTweetsList: Tweet[],
+    totalTweetsList: TweetType[],
     errorAllTweetsPerUser: string
   }
 }
@@ -128,7 +122,7 @@ export const selectlastTenDaysTweetsStats = createSelector(
 
     }
 
-    let filteredObject = dateArray.reduce((accumulator: any, currentTweet: Tweet) => {
+    let filteredObject = dateArray.reduce((accumulator: any, currentTweet: TweetType) => {
 
       const transformedTweet = {
         ...currentTweet,
