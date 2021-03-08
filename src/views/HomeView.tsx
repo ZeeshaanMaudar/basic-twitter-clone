@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 
-import TweetForm from '../components/Form';
+import TweetForm from '../components/TweetForm';
 import TweetsList from '../components/TweetsList';
 import Pagination from '../components/Pagination';
 import Layout from '../components/Layout';
