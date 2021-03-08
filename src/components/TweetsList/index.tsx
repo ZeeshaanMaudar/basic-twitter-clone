@@ -95,8 +95,9 @@ const callTweetsList = ({ tweetsList, usersList, usersDetailsList, singleUser, u
 }
 
 const callTitle = (singleUser: boolean) => {
+  
   if (singleUser) {
-    return <Title>My Tweets</Title>;
+    return <Title>Tweets</Title>;
   }
 
   return <Title>Latest Tweets</Title>;
