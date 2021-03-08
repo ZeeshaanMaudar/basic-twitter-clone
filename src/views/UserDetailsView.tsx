@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { fetchSingleUserStartAsync, fetchSingleUserDetailsStartAsync } from '../redux/singleUser/singleUserActions';
@@ -30,7 +30,6 @@ const UserDetailsView: FC = () => {
 
   return (
     <Layout>
-      <Link to='/'>Go back home</Link>
       <Profile />
       <TweetsList {...{ page, limit }} singleUser={true} />
       <Pagination {...{ page, limit, setLimit, setPage }} />
