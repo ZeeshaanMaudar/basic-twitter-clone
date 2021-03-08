@@ -3,8 +3,6 @@ import { useSelector } from 'react-redux';
 
 import { selectTweetsCount } from '../../redux/tweets/tweetsSelectors';
 
-
-
 import {
   PaginationWrapper,
   ButtonsWrapper,
