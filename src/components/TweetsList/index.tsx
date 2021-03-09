@@ -1,6 +1,7 @@
 import React, { FC, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { SpinnerCircular } from 'spinners-react';
 
 import {
   selectIsFetchingTweets,
@@ -24,7 +25,7 @@ import Tweet from '../Tweet';
 
 import { User, UserDetails, TweetType } from '../../common/interface';
 
-import { Wrapper, Title, Spinner } from './styled';
+import { Wrapper, Title } from './styled';
 
 interface TweetListProps {
   page: number,
@@ -155,7 +156,7 @@ const TweetsList: FC<TweetListProps> = ({ page, limit, profileView }) => {
   }
 
   if (loadingTweets || loadingUsers || loadingUsersDetails || isPosting || isDeleting) {
-    return <Spinner />;
+    return <SpinnerCircular />;
   }
 
   return (

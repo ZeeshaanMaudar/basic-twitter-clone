@@ -1,5 +1,6 @@
 import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { SpinnerCircular } from 'spinners-react';
 
 import { fetchUserEntireTweetsStartAsync } from '../../redux/tweets/tweetsActions';
 import { selectIsFetchingAllTweetsPerUser, selectlastTenDaysTweetsStats, selectErrorAllTweetsPerUser } from '../../redux/tweets/tweetsSelectors';
@@ -9,8 +10,7 @@ import {
   Title,
   Heading,
   ContentWrapper,
-  NumberOfTweets,
-  Spinner
+  NumberOfTweets
 } from './styled';
 
 interface StatsProps {
@@ -110,7 +110,7 @@ const Statistics: FC<StatsProps> = ({ userId }) => {
   }
 
   if (loading) {
-    return <Spinner />
+    return <SpinnerCircular />
   }
 
   if (error) {
