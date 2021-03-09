@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { SpinnerCircular } from 'spinners-react';
+import moment from 'moment';
 
 import {
   selectIsFetchingUser,
@@ -41,7 +42,7 @@ const callProfile = (user: User, userDetails: UserDetails) => {
           <div>
             <FullName>{firstName} {lastName}</FullName>
             <Username>{username}</Username>
-            <BirthDate>Born {birthday}</BirthDate>
+            <BirthDate>Born {moment(birthday).format("Do MMM YYYY")}</BirthDate>
           </div>
         </ProfileWrapper>
         {id === 1 && <TweetForm />}
