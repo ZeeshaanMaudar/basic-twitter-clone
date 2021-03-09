@@ -22,8 +22,7 @@ This project makes use of:
  1. Make sure you have the latest LTS version of [NodeJS](https://nodejs.org/en/) installed.
 
  2. Clone this project
-
- 3. Add the following [https://bitbucket.org/one-way/blackswan-tests/src/master/bs-react-redux-test-db.json](bs-react-redux-test-db.json) in the root folder of the app
+ 3. Create a folder called `data` in the root folder and add the following [https://bitbucket.org/one-way/blackswan-tests/src/master/bs-react-redux-test-db.json](bs-react-redux-test-db.json) file inside of it. Keep the name as is.
  4. Add a `.env` file in the root project of the app and add the following line inside of it: `REACT_APP_API=http://localhost:8000`
 
  5. Run `npm install` in the root folder of the repository to install all dependancies.

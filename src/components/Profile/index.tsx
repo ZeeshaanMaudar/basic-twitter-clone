@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { SpinnerCircular } from 'spinners-react';
 
 import {
   selectIsFetchingUser,
@@ -20,8 +21,7 @@ import {
   ProfilePic,
   FullName,
   Username,
-  BirthDate,
-  Spinner
+  BirthDate
 } from './styled';
 
 const callProfile = (user: User, userDetails: UserDetails) => {
@@ -72,7 +72,7 @@ const Profile = () => {
   }
 
   if (loadingUser || loadingUserDetails) {
-    return <Spinner />;
+    return <SpinnerCircular />;
   }
 
   return (

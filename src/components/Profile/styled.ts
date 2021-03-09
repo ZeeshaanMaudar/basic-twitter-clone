@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { SpinnerCircular } from 'spinners-react';
 
 export const StyledLink = styled(Link)`
   width: 80px;
@@ -55,10 +54,4 @@ export const Username = styled.p`
 
 export const BirthDate = styled.p`
   color: #848484;
-`
-
-export const Spinner = styled(SpinnerCircular)`
-  display: block;
-  margin: 0 auto;
-  padding-bottom: 40px;
 `

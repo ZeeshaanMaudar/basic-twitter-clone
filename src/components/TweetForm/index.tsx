@@ -1,6 +1,7 @@
 import React, { FC, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { SpinnerCircular } from 'spinners-react';
 
 import { postTweetStartAsync } from '../../redux/tweets/tweetsActions';
 
@@ -16,14 +17,13 @@ import {
   Button,
   ProfilePic,
   FormHeader,
-  FormFooter,
-  Spinner
+  FormFooter
 } from './styled';
 
 const callImage = (user: User, isLoadingUser: boolean) => {
 
   if (isLoadingUser) {
-    return <Spinner />
+    return <SpinnerCircular />
   }
 
   if (user) {
