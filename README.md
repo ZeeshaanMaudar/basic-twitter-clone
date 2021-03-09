@@ -22,17 +22,20 @@ This project makes use of:
  1. Make sure you have the latest LTS version of [NodeJS](https://nodejs.org/en/) installed.
 
  2. Clone this project
- 3. Create a folder called `data` in the root folder and add the following [https://bitbucket.org/one-way/blackswan-tests/src/master/bs-react-redux-test-db.json](bs-react-redux-test-db.json) file inside of it. Keep the name as is.
- 4. Add a `.env` file in the root project of the app and add the following line inside of it: `REACT_APP_API=http://localhost:8000`
 
- 5. Run `npm install` in the root folder of the repository to install all dependancies.
+ 3. Run `cd basic-twitter-clone` to navigate to the root folder of the project.
 
- 6. In a different terminal, run `json-server --watch bs-react-redux-test-db.json --port 8000` to run the server on port 8000. Read more on json-server here: [https://github.com/typicode/json-server](https://github.com/typicode/json-server)
+ 4. Ensure you have Json Server installed globally or run `npm install -g json-server` or `sudo npm install -g json-server` if on a mac.
 
- - You can now access [http://localhost:8000](http://localhost:8000) for the server api requests.
+ 5. In a different terminal, at the same path as the root folder, run `json-server --watch bs-react-redux-test-db.json --port 8000` to run the server on port 8000. Read more on json-server here: [https://github.com/typicode/json-server](https://github.com/typicode/json-server)
 
- 7. Back to the project's terminal, run `npm start` in the root folder of the repository to install all dependencies. This command will launch the app in the development mode on [http://localhost:3000](http://localhost:3000).
+- You can now access [http://localhost:8000](http://localhost:8000) for the server api requests.
 
+ 6. Add a `.env` file in the root project of the app and add the following line inside of it: `REACT_APP_API=http://localhost:8000`
+
+ 7. Run `npm install` in the root folder of the repository to install all dependancies.
+
+ 8. Back to the project's terminal, run `npm start` in the root folder of the repository to install all dependencies. This command will launch the app in the development mode on [http://localhost:3000](http://localhost:3000).
 
 ### Routes used in this app:
 - `GET` /users/`${userId}`
