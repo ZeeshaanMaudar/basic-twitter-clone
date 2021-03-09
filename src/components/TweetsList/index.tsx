@@ -36,7 +36,7 @@ interface CardArgs {
   tweetsList: TweetType[],
   usersList: User[],
   usersDetailsList: UserDetails[],
-  profileView: boolean,
+  profileView?: boolean,
   user: User,
   userDetails: UserDetails
 }
@@ -75,7 +75,7 @@ const callTweetsList = ({ tweetsList, usersList, usersDetailsList, profileView, 
   );
 }
 
-const callTitle = (profileView: boolean) => {
+const callTitle = (profileView?: boolean) => {
   
   if (profileView) {
     return <Title>Tweets</Title>;
