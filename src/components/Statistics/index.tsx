@@ -1,6 +1,7 @@
 import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { SpinnerCircular } from 'spinners-react';
+import PropTypes from 'prop-types';
 
 import { fetchUserEntireTweetsStartAsync } from '../../redux/tweets/tweetsActions';
 import { selectIsFetchingAllTweetsPerUser, selectlastTenDaysTweetsStats, selectErrorAllTweetsPerUser } from '../../redux/tweets/tweetsSelectors';
@@ -130,6 +131,10 @@ const Statistics: FC<StatsProps> = ({ userId }) => {
     </Wrapper>
   )
 
+}
+
+Statistics.propTypes = {
+  userId: PropTypes.string.isRequired,
 }
 
 export default Statistics;
