@@ -29,19 +29,19 @@ import { Wrapper, Title, Spinner } from './styled';
 interface TweetListProps {
   page: number,
   limit: number,
-  singleUser: boolean
+  profileView?: boolean
 }
 
 interface CardArgs {
   tweetsList: TweetType[],
   usersList: User[],
   usersDetailsList: UserDetails[],
-  singleUser: boolean,
+  profileView: boolean,
   user: User,
   userDetails: UserDetails
 }
 
-const callTweetsList = ({ tweetsList, usersList, usersDetailsList, singleUser, user, userDetails }: CardArgs) => {
+const callTweetsList = ({ tweetsList, usersList, usersDetailsList, profileView, user, userDetails }: CardArgs) => {
 
   if (tweetsList.length > 0) {
 
@@ -49,7 +49,7 @@ const callTweetsList = ({ tweetsList, usersList, usersDetailsList, singleUser, u
 
       const { id, userId } = tweetItem;
 
-        if (singleUser) {
+        if (profileView) {
           return (
             <Tweet key={id} {...{ tweetItem, user, userDetails }} />
           );
@@ -75,16 +75,16 @@ const callTweetsList = ({ tweetsList, usersList, usersDetailsList, singleUser, u
   );
 }
 
-const callTitle = (singleUser: boolean) => {
+const callTitle = (profileView: boolean) => {
   
-  if (singleUser) {
+  if (profileView) {
     return <Title>Tweets</Title>;
   }
 
   return <Title>Latest Tweets</Title>;
 }
 
-const TweetsList: FC<TweetListProps> = ({ page, limit, singleUser }) => {
+const TweetsList: FC<TweetListProps> = ({ page, limit, profileView }) => {
 
   const dispatch = useDispatch();
   const loadingTweets = useSelector(selectIsFetchingTweets);
@@ -125,7 +125,7 @@ const TweetsList: FC<TweetListProps> = ({ page, limit, singleUser }) => {
   }, [posted, deleted]);
 
   const fetchTweetsDetails = () => {
-    if (singleUser) {
+    if (profileView) {
       dispatch(fetchSingleUserTweetsStartAsync(page, limit, Number(userId)));
     } else {
       dispatch(fetchTweetsStartAsync(page, limit));
@@ -160,8 +160,8 @@ const TweetsList: FC<TweetListProps> = ({ page, limit, singleUser }) => {
 
   return (
     <Wrapper>
-      {callTitle(singleUser)}
-      {callTweetsList({ tweetsList, usersList, usersDetailsList, singleUser, user, userDetails })}
+      {callTitle(profileView)}
+      {callTweetsList({ tweetsList, usersList, usersDetailsList, profileView, user, userDetails })}
     </Wrapper>
   );
 }

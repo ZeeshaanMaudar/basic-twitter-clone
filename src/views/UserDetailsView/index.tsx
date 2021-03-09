@@ -20,7 +20,7 @@ const callTabs = (tab: boolean, page: number, limit: number, setLimit: (event: a
 
   return (
     <div>
-      <TweetsList {...{ page, limit }} singleUser={true} />
+      <TweetsList {...{ page, limit }} profileView={true} />
       <Pagination {...{ page, limit, setLimit, setPage }} />
     </div>
   );
