@@ -35,10 +35,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "docz": "docz dev --port 1337",
-    "docz:build": "docz build",
-    "docz:serve": "docz serve"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
