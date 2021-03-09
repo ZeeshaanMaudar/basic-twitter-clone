@@ -35,7 +35,7 @@ This project makes use of:
 
  7. Run `npm install` in the root folder of the repository to install all dependancies.
 
- 8. Back to the project's terminal, run `npm start` in the root folder of the repository to install all dependencies. This command will launch the app in the development mode on [http://localhost:3000](http://localhost:3000).
+ 8. Finally run `npm start` in the root folder. This command will launch the app in the development mode on [http://localhost:3000](http://localhost:3000).
 
 ### Routes used in this app:
 - `GET` /users/`${userId}`
