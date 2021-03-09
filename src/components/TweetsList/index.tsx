@@ -56,11 +56,9 @@ const callTweetsList = ({ tweetsList, usersList, usersDetailsList, profileView, 
           );
         } else {
 
-          const userArray = usersList.filter(user => user.id === userId);
-          const userItem = userArray[0];
+          const userItem = usersList.find(user => user.id === userId);
 
-          const userDetailsArray = usersDetailsList.filter(userDetail => userDetail.id === userItem.usersDetailsId);
-          const userDetailsItem = userDetailsArray[0];
+          const userDetailsItem = usersDetailsList.find(userDetail => userItem && userDetail.id === userItem.usersDetailsId);
 
           return (
             <Tweet key={id} {...{ tweetItem, user: userItem, userDetails: userDetailsItem }} />
