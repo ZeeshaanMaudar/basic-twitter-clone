@@ -1,6 +1,7 @@
 import React, { FC, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 
 import { updateTweetClapsStartAsync, deleteTweetStartAsync } from '../../redux/tweets/tweetsActions';
 import { selectIsUpdating, selectCurrentId, selectErrorUpdating  } from '../../redux/tweets/tweetsSelectors';
@@ -29,8 +30,8 @@ import {
 } from './styled';
 interface TweetCardProps {
   tweetItem: TweetType,
-  user: User,
-  userDetails: UserDetails
+  user?: User,
+  userDetails?: UserDetails
 }
 
 const callButton = (userId: number, handleDelete: () => void) => {
@@ -87,7 +88,7 @@ const Tweet: FC<TweetCardProps> = ({ tweetItem, user, userDetails }) => {
 
   if (user && userDetails) {
 
-    const { username, role, usersDetailsId, profilePic } = user;
+    const { username, profilePic } = user;
     const { firstName } = userDetails;
 
     return (
@@ -136,6 +137,29 @@ const Tweet: FC<TweetCardProps> = ({ tweetItem, user, userDetails }) => {
   } else {
     return null;
   }
+}
+
+Tweet.propTypes = {
+  tweetItem: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    tweet: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
+    claps: PropTypes.number.isRequired,
+    userId: PropTypes.number.isRequired,
+  }).isRequired,
+  user: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    username: PropTypes.string.isRequired,
+    role: PropTypes.string.isRequired,
+    usersDetailsId: PropTypes.number.isRequired,
+    profilePic: PropTypes.string.isRequired,
+  }),
+  userDetails: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    firstName: PropTypes.string.isRequired,
+    lastName: PropTypes.string.isRequired,
+    birthday: PropTypes.string.isRequired
+  }),
 }
 
 export default Tweet;

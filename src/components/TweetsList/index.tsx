@@ -2,6 +2,7 @@ import React, { FC, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { SpinnerCircular } from 'spinners-react';
+import PropTypes from 'prop-types';
 
 import {
   selectIsFetchingTweets,
@@ -56,11 +57,9 @@ const callTweetsList = ({ tweetsList, usersList, usersDetailsList, profileView, 
           );
         } else {
 
-          const userArray = usersList.filter(user => user.id === userId);
-          const userItem = userArray[0];
+          const userItem = usersList.find(user => user.id === userId);
 
-          const userDetailsArray = usersDetailsList.filter(userDetail => userDetail.id === userItem.usersDetailsId);
-          const userDetailsItem = userDetailsArray[0];
+          const userDetailsItem = usersDetailsList.find(userDetail => userItem && userDetail.id === userItem.usersDetailsId);
 
           return (
             <Tweet key={id} {...{ tweetItem, user: userItem, userDetails: userDetailsItem }} />
@@ -169,6 +168,12 @@ const TweetsList: FC<TweetListProps> = ({ page, limit, profileView }) => {
       {callTweetsList({ tweetsList, usersList, usersDetailsList, profileView, user, userDetails })}
     </Wrapper>
   );
+}
+
+TweetsList.propTypes = {
+  page: PropTypes.number.isRequired,
+  limit: PropTypes.number.isRequired,
+  profileView: PropTypes.bool
 }
 
 export default TweetsList;
