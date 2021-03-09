@@ -58,3 +58,6 @@ Worked under the assumption that userId from `/tweets` matches to `id` in `/user
 #### Pagination
 I am refetching data 5 items (depending on the limit set) even after deleting an item from the list which causes re-render to ensure that 5 items are always being displayed.
 However, if that's not suppose to work like that, that is if it is okay to show only 4 items in the list of 5 on successful deletion of an item, then we can simply remove the item on the front end first, and don't refetch list of 5 items on successful deletion of item but rather only when going to the next page and on refresh.
+
+### statistics
+I could not find a route to call only the number of tweets where date is `less than or equal to` 10 days ago. As a result, I had to call for all tweets on the front end, and then manipulate the data to get what I need.
