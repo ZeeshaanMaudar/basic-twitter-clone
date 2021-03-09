@@ -37,3 +37,9 @@ export const Heading = styled.h4`
 export const NumberOfTweets = styled.span`
   color: #848484;
 `
+
+export const SpinnerWrapper = styled.div`
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+`;

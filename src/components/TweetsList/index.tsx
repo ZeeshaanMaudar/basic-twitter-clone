@@ -25,7 +25,7 @@ import Tweet from '../Tweet';
 
 import { User, UserDetails, TweetType } from '../../common/interface';
 
-import { Wrapper, Title } from './styled';
+import { Wrapper, Title, SpinnerWrapper } from './styled';
 
 interface TweetListProps {
   page: number,
@@ -156,7 +156,11 @@ const TweetsList: FC<TweetListProps> = ({ page, limit, profileView }) => {
   }
 
   if (loadingTweets || loadingUsers || loadingUsersDetails || isPosting || isDeleting) {
-    return <SpinnerCircular />;
+    return (
+      <SpinnerWrapper>
+        <SpinnerCircular />
+      </SpinnerWrapper>
+    );
   }
 
   return (

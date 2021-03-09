@@ -14,3 +14,9 @@ export const Title = styled.h2`
   margin: 0;
   margin-bottom: 30px;
 `;
+
+export const SpinnerWrapper = styled.div`
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+`;
