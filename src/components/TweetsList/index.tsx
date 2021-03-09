@@ -29,7 +29,7 @@ import { Wrapper, Title, Spinner } from './styled';
 interface TweetListProps {
   page: number,
   limit: number,
-  profileView: boolean
+  profileView?: boolean
 }
 
 interface CardArgs {
