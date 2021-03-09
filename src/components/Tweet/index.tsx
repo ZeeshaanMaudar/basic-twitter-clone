@@ -1,6 +1,7 @@
 import React, { FC, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import moment from 'moment';
+import PropTypes from 'prop-types';
 
 import { updateTweetClapsStartAsync, deleteTweetStartAsync } from '../../redux/tweets/tweetsActions';
 import { selectIsUpdating, selectCurrentId, selectErrorUpdating  } from '../../redux/tweets/tweetsSelectors';
@@ -136,6 +137,29 @@ const Tweet: FC<TweetCardProps> = ({ tweetItem, user, userDetails }) => {
   } else {
     return null;
   }
+}
+
+Tweet.propTypes = {
+  tweetItem: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    tweet: PropTypes.string.isRequired,
+    date: PropTypes.string.isRequired,
+    claps: PropTypes.number.isRequired,
+    userId: PropTypes.number.isRequired,
+  }).isRequired,
+  user: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    username: PropTypes.string.isRequired,
+    role: PropTypes.string.isRequired,
+    usersDetailsId: PropTypes.number.isRequired,
+    profilePic: PropTypes.string.isRequired,
+  }).isRequired,
+  userDetails: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    firstName: PropTypes.string.isRequired,
+    lastName: PropTypes.string.isRequired,
+    birthday: PropTypes.string.isRequired
+  }).isRequired,
 }
 
 export default Tweet;
