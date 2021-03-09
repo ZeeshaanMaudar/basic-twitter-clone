@@ -30,8 +30,8 @@ import {
 } from './styled';
 interface TweetCardProps {
   tweetItem: TweetType,
-  user: User,
-  userDetails: UserDetails
+  user: User | null,
+  userDetails: UserDetails | null
 }
 
 const callButton = (userId: number, handleDelete: () => void) => {
@@ -153,13 +153,13 @@ Tweet.propTypes = {
     role: PropTypes.string.isRequired,
     usersDetailsId: PropTypes.number.isRequired,
     profilePic: PropTypes.string.isRequired,
-  }).isRequired,
+  }),
   userDetails: PropTypes.shape({
     id: PropTypes.number.isRequired,
     firstName: PropTypes.string.isRequired,
     lastName: PropTypes.string.isRequired,
     birthday: PropTypes.string.isRequired
-  }).isRequired,
+  }),
 }
 
 export default Tweet;
