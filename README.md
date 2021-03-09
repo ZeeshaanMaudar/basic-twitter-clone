@@ -1,46 +1,60 @@
-# Getting Started with Create React App
+# Basic Twitter Clone with React, Redux and Typescript using Json Server as a fake API
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This Single Page Application assumes that you are already signed in as `userId=1`. It showcases a basic CRUD app where you can:
 
-## Available Scripts
+- Create new tweets
+- Read a list of tweets which are paginated (default limit is 5),
+- Update the number of claps for each tweet (except for your own),
+- Delete your own tweets.
 
-In the project directory, you can run:
+It also allows to view an individual's profile page, with that user's list of tweets and his/statistics details which displays number of tweets per day for the last 10 days.
 
-### `npm start`
+If on your own profile page, you can post new tweets as well.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Technologies
+This project makes use of:
+- create-react-app
+- Typescript
+- Styled Components
+- Json Server
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+3. Run `yarn` in the root folder of the repository to install all dependancies.
+## How to start the project
 
-### `npm test`
+ 1. Make sure you have the latest LTS version of [NodeJS](https://nodejs.org/en/) installed.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+ 2. Clone this project
 
-### `npm run build`
+ 3. Add the following [https://bitbucket.org/one-way/blackswan-tests/src/master/bs-react-redux-test-db.json](bs-react-redux-test-db.json) in the root folder of the app
+ 4. Add a `.env` file in the root project of the app and add the following line inside of it: `REACT_APP_API=http://localhost:8000`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+ 5. Run `npm install` in the root folder of the repository to install all dependancies.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+ 6. In a different terminal, run `json-server --watch bs-react-redux-test-db.json --port 8000` to run the server on port 8000. Read more on json-server here: [https://github.com/typicode/json-server](https://github.com/typicode/json-server)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+ - You can now access [http://localhost:8000](http://localhost:8000)
 
-### `npm run eject`
+ 7. Back to the project's terminal, run `npm start` in the root folder of the repository to install all dependancies. This command will launch the app in the development mode on [http://localhost:3000](http://localhost:3000).
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Routes used in this app:
+- `GET` /users/`${userId}`
+- `GET` /usersDetails/`${userDetailsId}`
+- `GET` /tweets?_sort=date&_order=desc&_page=`${page}`&_limit=`${limit}`
+- `POST` /tweets
+- `PUT` /tweets/`${id}`
+- `DELETE` /tweets/`${id}`
+- `GET` /tweets?userId=`${userId}`&_sort=date&_order=desc&_page=`${page}`&_limit=`${limit}`
+- `GET` /tweets?userId=`${userId`}&_sort=date&_order=desc`
+- `GET` /users
+- `GET` /usersDetails
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Assumptions
+Worked under the assumption that userId from `/tweets` matches to `id` in `/users` and that `userDetailsId` from `/users` matches to `id` in `/usersDetails`
 
-## Learn More
+## Limitations of the app
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### Pagination
+I am refetching data 5 items (depending on the limit set) even after deleting an item from the list which causes re-render to ensure that 5 items are always being displayed.
+However, if that's not suppose to work like that, that is if it is okay to show only 4 items in the list of 5 on successful deletion of an item, then we can simply remove the item on the front end first, and don't refetch list of 5 items on successful deletion of item but rather only when going to the next page and on refresh.
