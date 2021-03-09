@@ -17,8 +17,6 @@ This project makes use of:
 - Typescript
 - Styled Components
 - Json Server
-
-3. Run `yarn` in the root folder of the repository to install all dependancies.
 ## How to start the project
 
  1. Make sure you have the latest LTS version of [NodeJS](https://nodejs.org/en/) installed.
@@ -32,9 +30,9 @@ This project makes use of:
 
  6. In a different terminal, run `json-server --watch bs-react-redux-test-db.json --port 8000` to run the server on port 8000. Read more on json-server here: [https://github.com/typicode/json-server](https://github.com/typicode/json-server)
 
- - You can now access [http://localhost:8000](http://localhost:8000)
+ - You can now access [http://localhost:8000](http://localhost:8000) for the server api requests.
 
- 7. Back to the project's terminal, run `npm start` in the root folder of the repository to install all dependancies. This command will launch the app in the development mode on [http://localhost:3000](http://localhost:3000).
+ 7. Back to the project's terminal, run `npm start` in the root folder of the repository to install all dependencies. This command will launch the app in the development mode on [http://localhost:3000](http://localhost:3000).
 
 
 ### Routes used in this app:
@@ -55,6 +53,8 @@ Worked under the assumption that userId from `/tweets` matches to `id` in `/user
 
 ## Limitations of the app
 
+#### On mount of the app
+3 requests are being made to fetch all tweets, all users and all userDetails, as I could not find a route to call all 3 of them in only one api call. Since working with Json Server, I could not request for these 3 data to be joined on the backend which I would do in a real world application. Hence the reason for storing the data on the fron-end, and manipulating the results to create tweet cards with matching users and userDetails.
 #### Pagination
 I am refetching data 5 items (depending on the limit set) even after deleting an item from the list which causes re-render to ensure that 5 items are always being displayed.
 However, if that's not suppose to work like that, that is if it is okay to show only 4 items in the list of 5 on successful deletion of an item, then we can simply remove the item on the front end first, and don't refetch list of 5 items on successful deletion of item but rather only when going to the next page and on refresh.
