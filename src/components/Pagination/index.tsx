@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { selectTweetsCount, selectIsFetchingTweets } from '../../redux/tweets/tweetsSelectors';
 
@@ -17,7 +18,7 @@ interface PaginationProps {
   page: number,
   limit: number,
   setLimit: (event: any) => void,
-  setPage: any
+  setPage: (event: any) => void
 }
 
 const Pagination: FC<PaginationProps> = ({ page, limit, setLimit, setPage }) => {
@@ -81,6 +82,13 @@ const Pagination: FC<PaginationProps> = ({ page, limit, setLimit, setPage }) => 
       </LimitWrapper>
     </PaginationWrapper>
   );
+}
+
+Pagination.propTypes = {
+  page: PropTypes.number.isRequired,
+  limit: PropTypes.number.isRequired,
+  setLimit: PropTypes.func.isRequired,
+  setPage: PropTypes.func.isRequired
 }
 
 export default Pagination;
