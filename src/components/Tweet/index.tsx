@@ -30,8 +30,8 @@ import {
 } from './styled';
 interface TweetCardProps {
   tweetItem: TweetType,
-  user: User | null,
-  userDetails: UserDetails | null
+  user?: User,
+  userDetails?: UserDetails
 }
 
 const callButton = (userId: number, handleDelete: () => void) => {
