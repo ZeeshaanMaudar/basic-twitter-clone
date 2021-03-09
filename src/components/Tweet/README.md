@@ -9,7 +9,8 @@ Component that does the following:
  - `onClick` of profile picture, name or username, it should redirect to the user's profile page.
  - Displays user details and tweet posted
  - Displays number of claps for specific tweet
- - Allows for incrementing claps on click
+ - Controls number of claps with state
+ - Allows for incrementing claps on click and updates json with `put` request
  - Prevents own user from clapping for their own tweets
  - Allows user to delete their own tweet
 
