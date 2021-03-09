@@ -87,7 +87,7 @@ const Tweet: FC<TweetCardProps> = ({ tweetItem, user, userDetails }) => {
 
   if (user && userDetails) {
 
-    const { username, role, usersDetailsId, profilePic } = user;
+    const { username, profilePic } = user;
     const { firstName } = userDetails;
 
     return (
