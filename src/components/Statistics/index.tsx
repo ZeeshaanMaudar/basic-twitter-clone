@@ -1,9 +1,8 @@
 import React, { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { SpinnerCircular } from 'spinners-react';
 
 import { fetchUserEntireTweetsStartAsync } from '../../redux/tweets/tweetsActions';
-import { selectIsFetchingAllTweetsPerUser, selectlastTenDaysTweetsStats, selectErrorAllTweetsPerUser } from '../../redux/tweets/tweetsSelectors';
+import { selectlastTenDaysTweetsStats, selectErrorAllTweetsPerUser } from '../../redux/tweets/tweetsSelectors';
 
 import {
   Wrapper,
@@ -97,7 +96,6 @@ const Statistics: FC<StatsProps> = ({ userId }) => {
 
   const dispatch = useDispatch();
 
-  const loading = useSelector(selectIsFetchingAllTweetsPerUser);
   const stats = useSelector(selectlastTenDaysTweetsStats);
   const error = useSelector(selectErrorAllTweetsPerUser);
 

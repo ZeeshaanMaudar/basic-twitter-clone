@@ -102,11 +102,6 @@ export const selectErrorDeleting = createSelector(
 );
 
 // fetch all Tweets per user
-export const selectIsFetchingAllTweetsPerUser = createSelector(
-  [selectTweets],
-  tweets => tweets.isFetchingAllTweets
-);
-
 export const selectlastTenDaysTweetsStats = createSelector(
   [selectTweets],
   tweets => {
