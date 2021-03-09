@@ -109,10 +109,6 @@ const Statistics: FC<StatsProps> = ({ userId }) => {
     dispatch(fetchUserEntireTweetsStartAsync(Number(userId)));
   }
 
-  if (loading) {
-    return <SpinnerCircular />
-  }
-
   if (error) {
     return <h1>{error}</h1>
   }

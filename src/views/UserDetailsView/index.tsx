@@ -1,6 +1,7 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState, lazy, Suspense } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { SpinnerCircular } from 'spinners-react';
 
 import { fetchSingleUserStartAsync, fetchSingleUserDetailsStartAsync } from '../../redux/singleUser/singleUserActions';
 
@@ -8,14 +9,19 @@ import Profile from '../../components/Profile';
 import TweetsList from '../../components/TweetsList';
 import Pagination from '../../components/Pagination';
 import Layout from '../../components/Layout';
-import Statistics from '../../components/Statistics';
 
 import { ButtonsWrapper, Button } from './styled';
+
+const Statistics = lazy(() => import('../../components/Statistics'));
 
 const callTabs = (tab: boolean, page: number, limit: number, setLimit: (event: any) => void, setPage: (event: any) => void, userId: string ) => {
 
   if (tab) {
-    return <Statistics {...{ userId }} />;
+    return (
+      <Suspense fallback={<SpinnerCircular />}>
+        <Statistics {...{ userId }} />
+      </Suspense>
+    );
   }
 
   return (
