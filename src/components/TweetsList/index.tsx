@@ -2,6 +2,7 @@ import React, { FC, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { SpinnerCircular } from 'spinners-react';
+import PropTypes from 'prop-types';
 
 import {
   selectIsFetchingTweets,
@@ -167,6 +168,12 @@ const TweetsList: FC<TweetListProps> = ({ page, limit, profileView }) => {
       {callTweetsList({ tweetsList, usersList, usersDetailsList, profileView, user, userDetails })}
     </Wrapper>
   );
+}
+
+TweetsList.propTypes = {
+  page: PropTypes.number.isRequired,
+  limit: PropTypes.number.isRequired,
+  profileView: PropTypes.bool
 }
 
 export default TweetsList;
