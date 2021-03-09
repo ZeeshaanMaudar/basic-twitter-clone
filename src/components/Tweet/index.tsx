@@ -7,6 +7,8 @@ import { selectIsUpdating, selectCurrentId, selectErrorUpdating  } from '../../r
 
 import VerifiedIcon from '../svg/verified.svg';
 
+import { TweetType, User, UserDetails } from '../../common/interface';
+
 import {
   Wrapper,
   ProfilePic,
@@ -26,26 +28,9 @@ import {
   DeleteButton
 } from './styled';
 interface TweetCardProps {
-  tweetItem: {
-    id: number,
-    tweet: string,
-    date: string,
-    claps: number,
-    userId: number
-  },
-  user: {
-    id: number,
-    username: string,
-    role: string,
-    usersDetailsId: number,
-    profilePic: string
-  },
-  userDetails: {
-    id: number,
-    firstName: string,
-    lastName: string,
-    birthday: string
-  }
+  tweetItem: TweetType,
+  user: User,
+  userDetails: UserDetails
 }
 
 const callButton = (userId: number, handleDelete: () => void) => {
