@@ -4,6 +4,9 @@
 
 This component gets loaded lazily, since it fetches the list of all tweets for one user which can be big depending on user on mount, and maybe not every user is going to go to that view.
 
+ Re-renders:
+
+ - when posted new tweet by `userId=1`
 ### Props
 
 ```
