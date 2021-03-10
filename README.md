@@ -27,7 +27,7 @@ This project makes use of:
 
  4. Ensure you have Json Server installed globally or run `npm install -g json-server` or `sudo npm install -g json-server` if on a mac.
 
- 5. In a different terminal, at the same path as the root folder, run `json-server --watch bs-react-redux-test-db.json --port 8000` to run the server on port 8000. Read more on json-server here: [https://github.com/typicode/json-server](https://github.com/typicode/json-server)
+ 5. In a different terminal, at the same path as the root folder, run `json-server --watch data/bs-react-redux-test-db.json --port 8000` to run the server on port 8000. Read more on json-server here: [https://github.com/typicode/json-server](https://github.com/typicode/json-server)
 
 - You can now access [http://localhost:8000](http://localhost:8000) for the server api requests.
 
