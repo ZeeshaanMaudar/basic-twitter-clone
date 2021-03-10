@@ -4,7 +4,7 @@ import { SpinnerCircular } from 'spinners-react';
 import PropTypes from 'prop-types';
 
 import { fetchUserEntireTweetsStartAsync } from '../../redux/tweets/tweetsActions';
-import { selectIsFetchingAllTweetsPerUser, selectlastTenDaysTweetsStats, selectErrorAllTweetsPerUser } from '../../redux/tweets/tweetsSelectors';
+import { selectIsFetchingAllTweetsPerUser, selectlastTenDaysTweetsStats, selectErrorAllTweetsPerUser, selectSuccessfullyPosted } from '../../redux/tweets/tweetsSelectors';
 
 import {
   Wrapper,
@@ -103,9 +103,19 @@ const Statistics: FC<StatsProps> = ({ userId }) => {
   const stats = useSelector(selectlastTenDaysTweetsStats);
   const error = useSelector(selectErrorAllTweetsPerUser);
 
+  const posted = useSelector(selectSuccessfullyPosted);
+
   useEffect(() => {
     fetchTweetsListForUser();
   }, []);
+
+  useEffect(() => {
+
+    if (posted) {
+      fetchTweetsListForUser();
+    }
+
+  }, [posted]);
 
   const fetchTweetsListForUser = () => {
     dispatch(fetchUserEntireTweetsStartAsync(Number(userId)));
